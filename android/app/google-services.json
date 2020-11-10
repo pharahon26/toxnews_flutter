@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "593065459066",
+    "firebase_url": "https://toxnews-8de7c.firebaseio.com",
+    "project_id": "toxnews-8de7c",
+    "storage_bucket": "toxnews-8de7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593065459066:android:a618acd17184a6a7",
+        "android_client_info": {
+          "package_name": "com.MoonLabTeck.ToxNews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593065459066-f7tl7kf9at2e66t4ue1adatmb34fb13r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.MoonLabTeck.ToxNews",
+            "certificate_hash": "c7b1cac15a9449a11ad10654270ba95a55d2371b"
+          }
+        },
+        {
+          "client_id": "593065459066-ivf5bsi9gb34no1lp0qv9ctbp81hr6dl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABHaRWXATbU2NQ33d9yCt7rV9o-KmH4uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593065459066-ccvc0o5d4vq39d46pbltai3f7l09fr1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593065459066:android:bbede4206d40654265eac3",
+        "android_client_info": {
+          "package_name": "com.moonlab.toxnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593065459066-ivf5bsi9gb34no1lp0qv9ctbp81hr6dl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABHaRWXATbU2NQ33d9yCt7rV9o-KmH4uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593065459066-ccvc0o5d4vq39d46pbltai3f7l09fr1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
