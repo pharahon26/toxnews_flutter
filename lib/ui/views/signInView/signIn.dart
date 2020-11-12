@@ -22,7 +22,48 @@ class _SignInState extends State<SignIn> {
           body: Column(
             children: [
               Image.asset('assets/tox_logo.png'),
-              Form(child: null)
+              Form(child: Center(
+                child: Column(
+                  children: [
+                    // Name
+                    TextFormField(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      decoration: InputDecoration(
+                        labelText: 'Name',
+                      ),
+                      onChanged: (name){
+                        model.name = name;
+                      },
+                    ),
+                    // Mail
+                    TextFormField(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      decoration: InputDecoration(
+                          labelText: 'Mail'
+                      ),
+                      onChanged: (mail) {
+                        model.mail = mail;
+                      },
+                    ),
+                    // Password
+                    TextFormField(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      decoration: InputDecoration(
+                          labelText: 'Password'
+                      ),
+                      onChanged: (password){
+                        model.password = password;
+                      },
+                    )
+                    /// the buttons for the Social network next
+                  ],
+                ),
+              )
+              ),
+              MaterialButton(
+                child: Text('Create Profile'),
+                  onPressed: () => model.signIn()
+              )
             ],
           ),
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:toxnews/ui/views/homeView/homeViewModel.dart';
-import 'package:toxnews/ui/views/signUpView/signUpViewModel.dart';
 
 /**
  * Created by Laty 26 PHARAHON entertainment on 11/11/2020.

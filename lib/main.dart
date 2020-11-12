@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:toxnews/tools/router.gr.dart' as myRouter;
 
 void main() {
   runApp(MyApp());
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             title: 'ToxNews',
+            debugShowCheckedModeBanner: false,
+            initialRoute: myRouter.Routes.splashScreen,
+            onGenerateRoute: myRouter.Router().onGenerateRoute,
             theme: ThemeData(
               primaryColor: Color(0xff1DE9B6),
               primaryColorDark: Color(0xff30B19F),

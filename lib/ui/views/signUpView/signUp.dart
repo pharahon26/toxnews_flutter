@@ -22,7 +22,37 @@ class _SignUpState extends State<SignUp> {
           body: Column(
             children: [
               Image.asset('assets/tox_logo.png'),
-              Form(child: null)
+              Form(child: Center(
+                child: Column(
+                  children: [
+                    // Mail
+                    TextFormField(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      decoration: InputDecoration(
+                        labelText: 'Mail'
+                      ),
+                      onChanged: (mail) {
+                        model.mail = mail;
+                      },
+                    ),
+                    // Password
+                    TextFormField(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      decoration: InputDecoration(
+                        labelText: 'Password'
+                      ),
+                      onChanged: (password){
+                        model.password = password;
+                      },
+                    )
+                    /// the buttons for the Social network next
+                  ],
+                ),
+              )),
+              MaterialButton(
+                child: Text('Sign Up'),
+                  onPressed: () => model.signUp()
+              )
             ],
           ),
         ),
