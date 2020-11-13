@@ -29,7 +29,17 @@ class _LogInState extends State<LogIn> {
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
-                        labelText: 'Mail'
+                          labelText: "Mail",
+                          labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
+                          enabledBorder:  UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                          ) ,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                          ) ,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).accentColor,
+                          )
                       ),
                       onChanged: (mail) {
                         model.mail = mail;
@@ -38,9 +48,19 @@ class _LogInState extends State<LogIn> {
                     // Password
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
-                      decoration: InputDecoration(
-                        labelText: 'Password'
-                      ),
+                        decoration: InputDecoration(
+                            labelText: "Password",
+                            labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
+                            enabledBorder:  UnderlineInputBorder(
+                              borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                            ) ,
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                            ) ,
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).accentColor,
+                            )
+                        ),
                       onChanged: (password){
                         model.password = password;
                       },
@@ -51,7 +71,7 @@ class _LogInState extends State<LogIn> {
               )),
               MaterialButton(
                 child: Text('Sign Up'),
-                  onPressed: () => model.logIn()
+                  onPressed: () => model.isBusy? null : model.logIn()
               )
             ],
           ),

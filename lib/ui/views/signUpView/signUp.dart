@@ -29,7 +29,17 @@ class _SignUpState extends State<SignUp> {
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
-                        labelText: 'Name',
+                          labelText: "Name",
+                          labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
+                          enabledBorder:  UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                          ) ,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                          ) ,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).accentColor,
+                          )
                       ),
                       onChanged: (name){
                         model.name = name;
@@ -39,7 +49,17 @@ class _SignUpState extends State<SignUp> {
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
-                          labelText: 'Mail'
+                          labelText: "Mail",
+                          labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
+                          enabledBorder:  UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                          ) ,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                          ) ,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).accentColor,
+                          )
                       ),
                       onChanged: (mail) {
                         model.mail = mail;
@@ -49,7 +69,17 @@ class _SignUpState extends State<SignUp> {
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
-                          labelText: 'Password'
+                          labelText: "Password",
+                          labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
+                          enabledBorder:  UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                          ) ,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                          ) ,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).accentColor,
+                          )
                       ),
                       onChanged: (password){
                         model.password = password;
