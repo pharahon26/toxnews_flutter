@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:toxnews/models/ToxNewsUsers.dart';
 
+@lazySingleton
 class FirebaseFirestoreService{
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   CollectionReference _user_collection;
