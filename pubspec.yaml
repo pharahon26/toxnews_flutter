@@ -27,6 +27,7 @@ dependencies:
   firebase_core: "0.5.2"
   firebase_analytics: "^6.2.0"
   firebase_auth: "^0.18.3"
+  google_sign_in: "^4.5.1"
   cloud_firestore: "^0.14.3"
 #  Stacked and Navigation dependencies
   stacked: ^1.2.2

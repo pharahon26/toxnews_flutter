@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<SlpashScreenViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           body: Column(
             children: [
               Image.asset('assets/tox_logo.png'),
