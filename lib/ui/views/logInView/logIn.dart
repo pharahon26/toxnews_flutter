@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:toxnews/ui/views/signInView/signInViewModel.dart';
+import 'package:toxnews/ui/views/logInView/logInViewModel.dart';
 
 /**
  * Created by Laty 26 PHARAHON entertainment on 11/11/2020.
  */
-class SignIn extends StatefulWidget {
-  SignIn({Key key}) : super(key: key);
+class LogIn extends StatefulWidget {
+  LogIn({Key key}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
+  _LogInState createState() => _LogInState();
 }
 
-class _SignInState extends State<SignIn> {
+class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SignInViewModel>.reactive(
+    return ViewModelBuilder<LogInViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
@@ -25,21 +25,11 @@ class _SignInState extends State<SignIn> {
               Form(child: Center(
                 child: Column(
                   children: [
-                    // Name
-                    TextFormField(
-                      style: Theme.of(context).textTheme.bodyText1,
-                      decoration: InputDecoration(
-                        labelText: 'Name',
-                      ),
-                      onChanged: (name){
-                        model.name = name;
-                      },
-                    ),
                     // Mail
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
-                          labelText: 'Mail'
+                        labelText: 'Mail'
                       ),
                       onChanged: (mail) {
                         model.mail = mail;
@@ -49,7 +39,7 @@ class _SignInState extends State<SignIn> {
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
-                          labelText: 'Password'
+                        labelText: 'Password'
                       ),
                       onChanged: (password){
                         model.password = password;
@@ -58,15 +48,14 @@ class _SignInState extends State<SignIn> {
                     /// the buttons for the Social network next
                   ],
                 ),
-              )
-              ),
+              )),
               MaterialButton(
-                child: Text('Create Profile'),
-                  onPressed: () => model.signIn()
+                child: Text('Sign Up'),
+                  onPressed: () => model.logIn()
               )
             ],
           ),
         ),
-        viewModelBuilder: () => SignInViewModel());
+        viewModelBuilder: () => LogInViewModel());
   }
 }

@@ -17,7 +17,7 @@ class FirebaseAuthService {
   }
 
   /// SignUp Method
-  Future signUpWithEmailAndPassword({@required String mail, @required String password}) async {
+  Future signUpWithEmailAndPassword({@required String name, @required String mail, @required String password}) async {
     /// Sign up with the mail and password provided
     try {
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: mail, password: password);

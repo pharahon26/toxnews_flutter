@@ -25,11 +25,21 @@ class _SignUpState extends State<SignUp> {
               Form(child: Center(
                 child: Column(
                   children: [
+                    // Name
+                    TextFormField(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      decoration: InputDecoration(
+                        labelText: 'Name',
+                      ),
+                      onChanged: (name){
+                        model.name = name;
+                      },
+                    ),
                     // Mail
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
-                        labelText: 'Mail'
+                          labelText: 'Mail'
                       ),
                       onChanged: (mail) {
                         model.mail = mail;
@@ -39,7 +49,7 @@ class _SignUpState extends State<SignUp> {
                     TextFormField(
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
-                        labelText: 'Password'
+                          labelText: 'Password'
                       ),
                       onChanged: (password){
                         model.password = password;
@@ -48,9 +58,10 @@ class _SignUpState extends State<SignUp> {
                     /// the buttons for the Social network next
                   ],
                 ),
-              )),
+              )
+              ),
               MaterialButton(
-                child: Text('Sign Up'),
+                child: Text('Create Profile'),
                   onPressed: () => model.signUp()
               )
             ],

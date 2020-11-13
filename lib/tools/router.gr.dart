@@ -10,18 +10,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/views/homeView/home.dart';
-import '../ui/views/signInView/signIn.dart';
+import '../ui/views/logInView/logIn.dart';
 import '../ui/views/signUpView/signUp.dart';
 import '../ui/views/splashSreenView/splash_screen.dart';
 
 class Routes {
   static const String splashScreen = '/';
-  static const String signIn = '/sign-in';
+  static const String logIn = '/log-in';
   static const String signUp = '/sign-up';
   static const String home = '/Home';
   static const all = <String>{
     splashScreen,
-    signIn,
+    logIn,
     signUp,
     home,
   };
@@ -32,7 +32,7 @@ class Router extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.splashScreen, page: SplashScreen),
-    RouteDef(Routes.signIn, page: SignIn),
+    RouteDef(Routes.logIn, page: LogIn),
     RouteDef(Routes.signUp, page: SignUp),
     RouteDef(Routes.home, page: Home),
   ];
@@ -48,12 +48,12 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    SignIn: (data) {
-      final args = data.getArgs<SignInArguments>(
-        orElse: () => SignInArguments(),
+    LogIn: (data) {
+      final args = data.getArgs<LogInArguments>(
+        orElse: () => LogInArguments(),
       );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => SignIn(key: args.key),
+        builder: (context) => LogIn(key: args.key),
         settings: data,
       );
     },
@@ -88,10 +88,10 @@ class SplashScreenArguments {
   SplashScreenArguments({this.key});
 }
 
-/// SignIn arguments holder class
-class SignInArguments {
+/// LogIn arguments holder class
+class LogInArguments {
   final Key key;
-  SignInArguments({this.key});
+  LogInArguments({this.key});
 }
 
 /// SignUp arguments holder class
