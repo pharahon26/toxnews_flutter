@@ -61,10 +61,24 @@ class ToxNewsUsers{
   }
 
   //firebase firestore reference
-  final String REF_FIREBASE_FIRESTORE = 'Users';
+  static final String REF_FIREBASE_FIRESTORE = 'Users';
 
   ToxNewsUsers();
 
   ToxNewsUsers.builder(this._id, this._name, this._mail, this._number);
+
+  Map<String, dynamic> toMap(){
+    return {
+      'id' : _id,
+      'mail' : _mail,
+      'name' : name,
+      'number' : _number,
+      'favoriteCategories' : _favoriteCategories,
+      'favoriteCompanies' : _favoriteCompanies,
+      'newsPaperOwned' : _newsPaperOwned,
+      'newsPaperSubscribed' : _newsPaperSubscribed,
+      'subscriber' : _subscriber,
+    };
+  }
 
 }

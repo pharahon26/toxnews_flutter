@@ -51,7 +51,7 @@ class NewspaperCompany{
     _phoneNumber = value;
   } //firebase firestore reference
 
-  final String REF_FIREBASE_FIRESTORE = 'Company';
+  static final String REF_FIREBASE_FIRESTORE = 'Company';
 
   NewspaperCompany();
 

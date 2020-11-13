@@ -6,6 +6,8 @@ class FlashNews {
   String _link;
   String _mediaLink;
   String _company;
+  static final String REF_FIREBASE_FIRESTORE = 'FlashNews';
+
 
   FlashNews();
 

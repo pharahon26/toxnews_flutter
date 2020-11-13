@@ -1,9 +1,19 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  User _user ;
+
+  FirebaseAuthService(){
+    _firebaseAuth.userChanges().listen((event) {
+      _user = event;
+    });
+  }
+
   /// SignUp Method
   Future signUpWithEmailAndPassword({@required String mail, @required String password}) async {
     /// Sign up with the mail and password provided
@@ -68,6 +78,9 @@ class FirebaseAuthService {
   }
 
   /// logOut Method
+  Future signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   /// interact with user data in firestore
   Future createUserData(){
@@ -81,9 +94,4 @@ class FirebaseAuthService {
 Future updateUserData(){
     /// update user data from firestore
   }
-
-Future deleteUserData(){
-    /// delete user data from firestore
-  }
-
 }
