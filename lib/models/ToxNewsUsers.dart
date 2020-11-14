@@ -81,4 +81,17 @@ class ToxNewsUsers{
     };
   }
 
+   ToxNewsUsers.fromMap(Map<String, dynamic> data){
+       _id = data['id'];
+      _mail = data['mail'];
+      _name = data['name'];
+      _number = data['number'];
+      // _favoriteCategories = data['favoriteCategories'];
+      // _favoriteCompanies = data['favoriteCompanies'] as List<String>;
+      // _newsPaperOwned = data['newsPaperOwned'] as List<String>;
+      // _newsPaperSubscribed = data['newsPaperSubscribed'] as List<String>;
+      _subscriber = data['subscriber'];
+  }
+
+
 }
