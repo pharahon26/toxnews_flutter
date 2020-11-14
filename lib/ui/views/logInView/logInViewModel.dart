@@ -24,6 +24,10 @@ class LogInViewModel extends BaseViewModel{
     _navigationService.navigateTo(Routes.home);
   }
 
+  void navigateToSignUp(){
+    _navigationService.navigateTo(Routes.signUp);
+  }
+
   void logIn() async {
     setBusy(true);
     await _authService.signInWithEmailAndPassword(mail: _mail, password: _password).then((value) {

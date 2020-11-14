@@ -1,10 +1,12 @@
-import 'dart:html';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:toxnews/tools/locator.dart';
 import 'package:toxnews/tools/router.gr.dart' as myRouter;
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -21,8 +23,18 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return Text(
-              snapshot.error.toString()
+          print(snapshot.hasError.toString());
+          return MaterialApp(
+            home: Container(
+              child: Center(
+                child: Text(
+                    snapshot.error.toString(),
+                  style: TextStyle(
+                    fontSize: 14.0
+                  ),
+                ),
+              ),
+            ),
           );
         }
 
@@ -33,19 +45,20 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: myRouter.Routes.splashScreen,
             onGenerateRoute: myRouter.Router().onGenerateRoute,
+            navigatorKey: locator<NavigationService>().navigatorKey,
             theme: ThemeData(
               primaryColor: Color(0xff1DE9B6),
               primaryColorDark: Color(0xff30B19F),
               primaryColorLight: Color(0xff70F8D6),
               accentColor: Color(0xffD500F9),
               hintColor: Color(0xffD82CF5),
-              backgroundColor: Colors.blueGrey,
+              backgroundColor: Colors.grey[850],
 
               fontFamily: "Times New Roman",
 
               textTheme: TextTheme(
                 headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                headline6: TextStyle(fontSize: 18.0, fontStyle: FontStyle.italic),
+                headline6: TextStyle(fontSize: 18.0,  color: Colors.white),
                 bodyText1: TextStyle(fontSize: 12.0),
                 bodyText2: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
               ),
@@ -55,7 +68,11 @@ class MyApp extends StatelessWidget {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return CircularProgressIndicator(
+        return MaterialApp(
+          home: Container(
+            child: CircularProgressIndicator(
+            ),
+          ),
         );
       },
     );

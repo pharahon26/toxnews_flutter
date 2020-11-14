@@ -19,6 +19,13 @@ class _SignUpState extends State<SignUp> {
     return ViewModelBuilder<SignUpViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
+          appBar: AppBar(
+            title: Text('Register',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            centerTitle: true,
+            backgroundColor: Theme.of(context).primaryColorDark,
+          ),
           body: Column(
             children: [
               Image.asset('assets/tox_logo.png'),

@@ -17,21 +17,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SplashScreenViewModel>.reactive(
+        onModelReady: (model) => model.handleStartUpLogic(),
         builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
-          body: Column(
-            children: [
-              Image.asset('assets/tox_logo.png'),
-              MaterialButton(
-                  child: Text('Log In'),
-                  onPressed: () => model.navigateToLogIn()
+          appBar: AppBar(
+            title: Text('Welcome',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            centerTitle: true,
+            backgroundColor: Theme.of(context).primaryColorDark,
+          ),
+          body: SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/tox_logo.png'),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  CircularProgressIndicator()
+                ],
               ),
-              MaterialButton(
-                  child: Text('Sign Up'),
-                  onPressed: () => model.navigateToSignUp()
-              ),
-              CircularProgressIndicator()
-            ],
+            ),
           ),
         ),
         viewModelBuilder: () => SplashScreenViewModel());

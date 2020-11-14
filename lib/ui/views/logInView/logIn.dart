@@ -19,6 +19,13 @@ class _LogInState extends State<LogIn> {
     return ViewModelBuilder<LogInViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
+          appBar: AppBar(
+            title: Text('Log In',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            centerTitle: true,
+            backgroundColor: Theme.of(context).primaryColorDark,
+          ),
           body: Column(
             children: [
               Image.asset('assets/tox_logo.png'),
@@ -69,9 +76,36 @@ class _LogInState extends State<LogIn> {
                   ],
                 ),
               )),
-              MaterialButton(
-                child: Text('Sign Up'),
-                  onPressed: () => model.isBusy? null : model.logIn()
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  children: [
+                    Text('Please Sign Up if you are new In this adventure',
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MaterialButton(
+                          child: Text('log In',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                            onPressed: () => model.isBusy? null : model.logIn()
+                        ),
+                        RaisedButton(
+                            color: Theme.of(context).accentColor,
+                            child: Text('Sign Up',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            onPressed: () => model.navigateToSignUp()
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               )
             ],
           ),

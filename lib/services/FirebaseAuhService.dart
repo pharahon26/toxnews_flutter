@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -16,6 +15,12 @@ class FirebaseAuthService {
     });
   }
 
+  ///check the current user
+  Future<bool> isUserLoggedIn() async {
+    var user = await _firebaseAuth.currentUser;
+    return user != null;
+  }
+
   /// SignUp Method
   Future signUpWithEmailAndPassword({@required String name, @required String mail, @required String password}) async {
     /// Sign up with the mail and password provided
@@ -25,6 +30,7 @@ class FirebaseAuthService {
       return userCredential.user != null;
     } catch (e) {
       print('${e.toString()}');
+      return e.message;
     }
 
   }
@@ -56,6 +62,7 @@ class FirebaseAuthService {
       return userCredential.user != null;
     } catch (e) {
       print(e);
+      return e.message;
     }
 
   }

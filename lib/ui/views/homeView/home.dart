@@ -18,6 +18,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
+          appBar: AppBar(
+            title: Text('Home',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            centerTitle: true,
+            backgroundColor: Theme.of(context).primaryColorDark,
+          ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: [
