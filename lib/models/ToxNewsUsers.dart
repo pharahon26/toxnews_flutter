@@ -66,6 +66,8 @@ class ToxNewsUsers{
   ToxNewsUsers();
 
   ToxNewsUsers.builder(this._id, this._name, this._mail, this._number){
+    /// create a new user Object with subscriber = false, that means that
+    /// a user create in the app is consider as if he is not related to a company
     _subscriber = false;
   }
 
@@ -84,6 +86,7 @@ class ToxNewsUsers{
   }
 
    ToxNewsUsers.fromMap(Map<String, dynamic> data){
+      /// create user from map data usually from firebase
        _id = data['id'];
       _mail = data['mail'];
       _name = data['name'];
