@@ -65,7 +65,9 @@ class ToxNewsUsers{
 
   ToxNewsUsers();
 
-  ToxNewsUsers.builder(this._id, this._name, this._mail, this._number);
+  ToxNewsUsers.builder(this._id, this._name, this._mail, this._number){
+    _subscriber = false;
+  }
 
   Map<String, dynamic> toMap(){
     return {
