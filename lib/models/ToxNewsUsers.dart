@@ -1,5 +1,9 @@
-/// The User class that represent the user data
+import 'package:json_annotation/json_annotation.dart';
 
+part 'ToxNewsUsers.g.dart';
+
+/// The User class that represent the user data
+@JsonSerializable()
 class ToxNewsUsers{
 
   // variables
@@ -71,32 +75,10 @@ class ToxNewsUsers{
     _subscriber = false;
   }
 
-  Map<String, dynamic> toMap(){
-    return {
-      'id' : _id,
-      'mail' : _mail,
-      'name' : name,
-      'number' : _number,
-      'favoriteCategories' : _favoriteCategories,
-      'favoriteCompanies' : _favoriteCompanies,
-      'newsPaperOwned' : _newsPaperOwned,
-      'newsPaperSubscribed' : _newsPaperSubscribed,
-      'subscriber' : _subscriber,
-    };
-  }
+  Map<String, dynamic> toJson() => _$ToxNewsUsersToJson(this);
 
-   ToxNewsUsers.fromMap(Map<String, dynamic> data){
-      /// create user from map data usually from firebase
-       _id = data['id'];
-      _mail = data['mail'];
-      _name = data['name'];
-      _number = data['number'];
-      // _favoriteCategories = data['favoriteCategories'];
-      // _favoriteCompanies = data['favoriteCompanies'] as List<String>;
-      // _newsPaperOwned = data['newsPaperOwned'] as List<String>;
-      // _newsPaperSubscribed = data['newsPaperSubscribed'] as List<String>;
-      _subscriber = data['subscriber'];
-  }
+  /// create user from map data usually from firebase
+   factory ToxNewsUsers.fromJson(Map<String, dynamic> json) => _$ToxNewsUsersFromJson(json);
 
 
 }
