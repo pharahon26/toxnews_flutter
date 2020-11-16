@@ -1,5 +1,9 @@
-/// represent de company info
+import 'package:json_annotation/json_annotation.dart';
 
+part 'NewspaperCompany.g.dart';
+
+/// represent de company info
+@JsonSerializable()
 class NewspaperCompany{
   /// VARIABLES
   //  ID
@@ -54,5 +58,10 @@ class NewspaperCompany{
   static final String REF_FIREBASE_FIRESTORE = 'Company';
 
   NewspaperCompany();
+
+  Map<String, dynamic> toJson() => _$NewspaperCompanyToJson(this);
+
+  /// create Company from map data usually from firebase
+  factory NewspaperCompany.fromJson(Map<String, dynamic> json) => _$NewspaperCompanyFromJson(json);
 
 }

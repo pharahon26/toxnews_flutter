@@ -27,9 +27,16 @@ class _HomeState extends State<Home> {
           ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Image.asset('assets/tox_logo.png'),
-              Text('user')
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: model.news.length,
+                itemBuilder: (context, index) {
+                  return model.news[index].getCard();
+                },
+              )
             ],
           ),
         ),

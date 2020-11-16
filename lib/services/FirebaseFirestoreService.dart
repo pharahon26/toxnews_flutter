@@ -1,15 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:toxnews/models/FlashNews.dart';
 import 'package:toxnews/models/ToxNewsUsers.dart';
 
 @lazySingleton
 class FirebaseFirestoreService{
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   CollectionReference _user_collection;
+  CollectionReference _flash_news_collection;
   ToxNewsUsers _toxNewsUser;
+  List<FlashNews> _flashNews = List();
 
   FirebaseFirestoreService(){
     _user_collection = _firestore.collection(ToxNewsUsers.REF_FIREBASE_FIRESTORE);
+    _flash_news_collection = _firestore.collection(FlashNews.REF_FIREBASE_FIRESTORE);
   }
 
   /// User Data Interactions
@@ -40,5 +44,30 @@ class FirebaseFirestoreService{
       await _user_collection.doc(users.id).update(users.toJson()).catchError((error) => print("Failed to add user: $error"));
     }
   }
+
   /// FlashNews interactions
+  Future<List<FlashNews>> getFlashNews() async {
+    List<FlashNews> result = List();
+    FlashNews t1 = FlashNews.build(
+        DateTime.now().toIso8601String(),
+        'A big News',
+        'Toxnews is comming are you ready for the Storm,',
+        '_link',
+        '_mediaLink',
+        'Coco.Ivoire',
+        DateTime.now().millisecondsSinceEpoch);
+
+    FlashNews t2 = FlashNews.build(
+        DateTime.now().toIso8601String(),
+        'A second big News',
+        ' Let keep the energy and get the job done',
+        '_link',
+        '_mediaLink',
+        'Pyra.Burkina',
+        DateTime.now().millisecondsSinceEpoch);
+
+    result.add(t1);
+    result.add(t2);
+    return result;
+  }
 }
