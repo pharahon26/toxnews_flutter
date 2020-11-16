@@ -29,7 +29,8 @@ class SignUpViewModel extends BaseViewModel{
     _navigationService.navigateTo(Routes.home);
   }
 
-  void signUp() async {
+  void signUpWithEmailAndPassword() async {
+    /// Sign up with email and password
     setBusy(true);
     await _authService.signUpWithEmailAndPassword(name: _name, mail: _mail, password: _password).then((value) {
       setBusy(false);
@@ -52,4 +53,31 @@ class SignUpViewModel extends BaseViewModel{
       }
     });
   }
+
+  void signUpWithGmail() async {
+    /// Sign up with Gmail
+    setBusy(true);
+    await _authService.signUpWithGmail().then((value) {
+      setBusy(false);
+      if(value is bool){
+        if(value == true){
+          _snackbarService.showSnackbar(
+              title: 'Sign up',
+              message: 'User Created successfully',
+              mainButtonTitle: 'OK',
+              onMainButtonTapped: () => navigateToHome()
+          );
+        }
+        else{
+          _snackbarService.showSnackbar(
+              title: 'Sign up',
+              message: 'Error user Creation failed',
+              mainButtonTitle: 'OK',
+          );
+        }
+      }
+    });
+  }
+
+
 }

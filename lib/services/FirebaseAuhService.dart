@@ -43,7 +43,7 @@ class FirebaseAuthService {
 
   }
 
-  Future signUpWithGmail({@required String mail, @required String password}) async {
+  Future signUpWithGmail() async {
     /// Sign up with the Gmail profile
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -84,7 +84,7 @@ class FirebaseAuthService {
 
   }
 
-  Future signInWithGmail({@required String mail, @required String password}) async {
+  Future signInWithGmail() async {
     /// Sign In with the Gmail profile
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();

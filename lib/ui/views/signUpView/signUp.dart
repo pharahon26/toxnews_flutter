@@ -99,8 +99,13 @@ class _SignUpState extends State<SignUp> {
               ),
               MaterialButton(
                 child: Text('Create Profile'),
-                  onPressed: () => model.signUp()
+                  onPressed: () => model.signUpWithEmailAndPassword()
+              ),
+              RaisedButton(
+                child: Text('Sign up with Gmail'),
+                  onPressed: () => model.signUpWithGmail()
               )
+
             ],
           ),
         ),
