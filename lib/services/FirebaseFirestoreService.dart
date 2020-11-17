@@ -13,7 +13,7 @@ class FirebaseFirestoreService{
 
   FirebaseFirestoreService(){
     _user_collection = _firestore.collection(ToxNewsUsers.REF_FIREBASE_FIRESTORE);
-    _flash_news_collection = _firestore.collection(FlashNews.REF_FIREBASE_FIRESTORE);
+    _flash_news_collection = _firestore.collectionGroup(FlashNews.REF_FIREBASE_FIRESTORE);
   }
 
   /// User Data Interactions
@@ -48,6 +48,12 @@ class FirebaseFirestoreService{
   /// FlashNews interactions
   Future<List<FlashNews>> getFlashNews() async {
     List<FlashNews> result = List();
+    await _flash_news_collection.get().then((value) {
+      value.docs.forEach((element) {
+        FlashNews news = FlashNews.fromJson(element.data());
+        result.add(news);
+      });
+    });
     FlashNews t1 = FlashNews.build(
         DateTime.now().toIso8601String(),
         'A big News',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toxnews/models/FlashNews.dart';
+import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitView.dart';
 
 /**
  * Created by Laty 26 PHARAHON entertainment on 16/11/2020.
@@ -20,12 +21,17 @@ class FlashNewsCardView extends StatelessWidget {
         width: double.maxFinite,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('${flashNews.title} ${date.day}/${date.month}'),
-              Text(flashNews.news),
-            ],
+          child: GestureDetector(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('${flashNews.title} ${date.day}/${date.month}'),
+                Text(flashNews.news),
+              ],
+            ),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => FlashNewsUnitView(news: flashNews,)));
+            },
           ),
         ),
       )
