@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:toxnews/models/FlashNews.dart';
 import 'package:toxnews/ui/views/homeView/homeViewModel.dart';
 
 /**
@@ -30,12 +31,17 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: model.news.length,
-                itemBuilder: (context, index) {
-                  return model.news[index].getCard();
-                },
+              StreamBuilder<List<FlashNews>>(
+                stream: model.list,
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return snapshot.data[index].getCard();
+                    },
+                  );
+                }
               )
             ],
           ),

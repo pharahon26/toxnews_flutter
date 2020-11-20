@@ -7,7 +7,7 @@ import 'package:toxnews/models/ToxNewsUsers.dart';
 class FirebaseFirestoreService{
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   CollectionReference _user_collection;
-  CollectionReference _flash_news_collection;
+  Query _flash_news_collection;
   ToxNewsUsers _toxNewsUser;
   List<FlashNews> _flashNews = List();
 
@@ -49,9 +49,13 @@ class FirebaseFirestoreService{
   Future<List<FlashNews>> getFlashNews() async {
     List<FlashNews> result = List();
     await _flash_news_collection.get().then((value) {
+      print('FIRESTORE SERVICE: Get news');
       value.docs.forEach((element) {
+        print('FIRESTORE SERVICE: FlashNews before ${element.data()['id']} ${element.data()['title']} ${element.data()['news']} ${element.data()['link']} ${element.data()['company']} ${element.data()['category']} ${element.data()['creationDate']} ');
         FlashNews news = FlashNews.fromJson(element.data());
+        print('FIRESTORE SERVICE: FlashNews ${news.id} ${news.title} ${news.news} ${news.link} ${news.company} ${news.category} ${news.creationDate} ');
         result.add(news);
+        print('FIRESTORE SERVICE: Get news done!');
       });
     });
     FlashNews t1 = FlashNews.build(
@@ -74,6 +78,9 @@ class FirebaseFirestoreService{
 
     result.add(t1);
     result.add(t2);
+    result.forEach((news) {
+      print('FIRESTORE SERVICE: FlashNews LIST: ${news.id} ${news.title} ${news.news} ${news.link} ${news.company} ${news.category} ${news.creationDate} ');
+    });
     return result;
   }
 }

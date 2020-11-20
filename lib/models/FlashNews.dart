@@ -53,6 +53,14 @@ class FlashNews {
     _company = value;
   }
 
+  // category
+  String _category;
+  String get category => _category;
+  set category(String value) {
+    /// company id
+    _category = value;
+  }
+
   // date of publication
   int _creationDate;
   int get creationDate => _creationDate;
