@@ -16,17 +16,52 @@ class FlashNewsCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: SizedBox(
-        height: 75.0,
+      color: Theme.of(context).primaryColorLight,
+      child: Container(
+        height: 150.0,
         width: double.maxFinite,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Text('${flashNews.title} ${date.day}/${date.month}'),
-                Text(flashNews.news),
+                Expanded(
+                  child: Image.network(flashNews.mediaLink),
+                  flex: 1,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(flashNews.title,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            Text('${date.day}/${date.month}',
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                          child: Text(flashNews.news,
+                            textAlign: TextAlign.justify,
+                            style: Theme.of(context).textTheme.bodyText2,
+                          )
+                      ),
+                    ],
+                  ),
+                ),
+
               ],
             ),
             onTap: (){

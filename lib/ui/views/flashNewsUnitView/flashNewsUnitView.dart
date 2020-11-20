@@ -31,14 +31,22 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
           ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text(model.news.company),
-              Text(model.news.mediaLink),
-              Text(model.news.title),
-              Text(model.news.creationDate.toString()),
-              Text(model.news.link),
+              Text(model.news.company, style: Theme.of(context).textTheme.headline6,),
+              SizedBox(
+                height: 8.0,
+              ),
+              Stack(
+                children: [
+                  Container(width: double.infinity, child: Image.network(model.news.mediaLink)),
+                  Text(model.news.title, style: Theme.of(context).textTheme.bodyText1,),
+                ],
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              Text(model.news.news, style: Theme.of(context).textTheme.bodyText1,),
             ],
           ),
         ),

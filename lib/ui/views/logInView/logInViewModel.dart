@@ -28,7 +28,7 @@ class LogInViewModel extends BaseViewModel{
     _navigationService.navigateTo(Routes.signUp);
   }
 
-  void logIn() async {
+  void logInWithEmailAndPassword() async {
     setBusy(true);
     await _authService.signInWithEmailAndPassword(mail: _mail, password: _password).then((value) {
       setBusy(false);
@@ -51,5 +51,31 @@ class LogInViewModel extends BaseViewModel{
       }
     });
   }
+
+  void logInWithGmail() async {
+    setBusy(true);
+    await _authService.signInWithGmail().then((value) {
+      setBusy(false);
+      if(value is bool){
+        if(value == true){
+          _snackbarService.showSnackbar(
+              title: 'Sign up',
+              message: 'User log in successfully',
+              mainButtonTitle: 'OK',
+              onMainButtonTapped: () => navigateToHome()
+          );
+        }
+        else{
+          _snackbarService.showSnackbar(
+            title: 'Sign up',
+            message: 'Error user not find',
+            mainButtonTitle: 'OK',
+          );
+        }
+      }
+    });
+  }
+
+
 
 }

@@ -90,10 +90,16 @@ class _LogInState extends State<LogIn> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         MaterialButton(
-                          child: Text('log In',
+                          child: Text('log in',
                             style: Theme.of(context).textTheme.headline6,
                           ),
-                            onPressed: () => model.isBusy? null : model.logIn()
+                            onPressed: () => model.isBusy? null : model.logInWithEmailAndPassword()
+                        ),
+                        MaterialButton(
+                          child: Text('log in with gmail',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                            onPressed: () => model.isBusy? null : model.logInWithGmail()
                         ),
                         RaisedButton(
                             color: Theme.of(context).accentColor,

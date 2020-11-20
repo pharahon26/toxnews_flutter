@@ -27,23 +27,22 @@ class _HomeState extends State<Home> {
             backgroundColor: Theme.of(context).primaryColorDark,
           ),
           backgroundColor: Theme.of(context).backgroundColor,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              StreamBuilder<List<FlashNews>>(
-                stream: model.list,
-                builder: (context, snapshot) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return snapshot.data[index].getCard();
-                    },
-                  );
-                }
-              )
-            ],
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            padding: EdgeInsets.all(8.0),
+            child: StreamBuilder<List<FlashNews>>(
+              stream: model.list,
+              builder: (context, snapshot) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return snapshot.data[index].getCard();
+                  },
+                );
+              }
+            ),
           ),
         ),
         viewModelBuilder: () => HomeViewModel());
