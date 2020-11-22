@@ -16,7 +16,7 @@ class FlashNewsCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).primaryColorLight,
+      color: Theme.of(context).cardColor,
       child: Container(
         height: 150.0,
         width: double.maxFinite,
@@ -24,15 +24,16 @@ class FlashNewsCardView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Image.network(flashNews.mediaLink),
-                  flex: 1,
+                  flex: 2,
                 ),
                 Expanded(
-                  flex: 1,
+                  flex: 5,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
@@ -43,10 +44,10 @@ class FlashNewsCardView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(flashNews.title,
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyText2,
                             ),
                             Text('${date.day}/${date.month}',
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ],
                         ),
@@ -55,7 +56,7 @@ class FlashNewsCardView extends StatelessWidget {
                         flex: 5,
                           child: Text(flashNews.news,
                             textAlign: TextAlign.justify,
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context).textTheme.bodyText1,
                           )
                       ),
                     ],

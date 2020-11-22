@@ -53,14 +53,16 @@ class MyApp extends StatelessWidget {
               accentColor: Color(0xffD500F9),
               hintColor: Color(0xffD82CF5),
               backgroundColor: Colors.grey[850],
-
+              cardColor: Colors.black38,
               fontFamily: "Times New Roman",
 
               textTheme: TextTheme(
                 headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                headline6: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                bodyText1: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold,),
-                bodyText2: TextStyle(fontSize: 10.0, ),
+                headline3: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xff70F8D6)),
+                headline5: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff70F8D6)),
+                headline6: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.white ),
+                bodyText1: TextStyle(fontSize: 12.0, color: Colors.white ),
+                bodyText2: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xffD82CF5)),
               ),
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
