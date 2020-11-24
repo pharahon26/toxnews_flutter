@@ -57,7 +57,10 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                         SizedBox(
                           height: 8.0,
                         ),
-                        Text(model.news.news, style: Theme.of(context).textTheme.bodyText1,),
+                        Text(model.news.news,
+                          style: Theme.of(context).textTheme.bodyText1,
+                          textAlign: TextAlign.justify,
+                        ),
                       ],
                     ),
                   ),
@@ -67,7 +70,7 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   onPressed: (){
-
+                    model.reachBase();
                   },
                 ),
                 /// news Text

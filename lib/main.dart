@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
               accentColor: Color(0xffD500F9),
               hintColor: Color(0xffD82CF5),
               backgroundColor: Colors.grey[850],
-              cardColor: Colors.black38,
+              cardColor: Colors.teal[900],
               fontFamily: "Times New Roman",
 
               textTheme: TextTheme(
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
                 headline5: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff70F8D6)),
                 headline6: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.white ),
                 bodyText1: TextStyle(fontSize: 12.0, color: Colors.white ),
-                bodyText2: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xffD82CF5)),
+                bodyText2: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.amber),
               ),
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),

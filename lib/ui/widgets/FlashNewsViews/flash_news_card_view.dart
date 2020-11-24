@@ -29,7 +29,7 @@ class FlashNewsCardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Image.network(flashNews.mediaLink),
+                  child: Center(child: Image.network(flashNews.mediaLink)),
                   flex: 2,
                 ),
                 Expanded(
@@ -40,23 +40,37 @@ class FlashNewsCardView extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(flashNews.title,
-                              style: Theme.of(context).textTheme.bodyText2,
-                            ),
-                            Text('${date.day}/${date.month}',
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text(flashNews.company.split('.').first.toUpperCase(),
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
                         ),
                       ),
                       Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text(flashNews.title,
+                            style: Theme.of(context).textTheme.headline5,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                          ),
+                        ),
+                      ),
+
+                      Expanded(
                         flex: 5,
-                          child: Text(flashNews.news,
-                            textAlign: TextAlign.justify,
-                            style: Theme.of(context).textTheme.bodyText1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(flashNews.news,
+                              textAlign: TextAlign.justify,
+                              style: Theme.of(context).textTheme.bodyText1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 5,
+                            ),
                           )
                       ),
                     ],

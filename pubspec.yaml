@@ -37,6 +37,9 @@ dependencies:
   injectable: "^1.0.5"
 #  Json dependencies
   json_annotation: ^3.1.0
+#  URL Dependency
+  url_launcher: ^5.7.10
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
