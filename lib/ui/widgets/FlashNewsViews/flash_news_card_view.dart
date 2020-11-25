@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:toxnews/models/FlashNews.dart';
 import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitView.dart';
@@ -16,7 +17,11 @@ class FlashNewsCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).cardColor,
+      // color: Theme.of(context).cardColor,
+      color: Colors.black38,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0)
+      ),
       child: Container(
         height: 150.0,
         width: double.maxFinite,
@@ -29,7 +34,9 @@ class FlashNewsCardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Center(child: Image.network(flashNews.mediaLink)),
+                  child: Center(child: Image.network(flashNews.mediaLink,
+                    fit: BoxFit.contain,
+                  ),),
                   flex: 2,
                 ),
                 Expanded(

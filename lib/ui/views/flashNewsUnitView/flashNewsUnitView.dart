@@ -49,7 +49,9 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                   child: Container(
                     child: Column(
                       children: [
-                        Container(width: double.infinity, child: Image.network(model.news.mediaLink)),
+                        Container(width: double.infinity, child: Image.network(model.news.mediaLink,
+                          fit: BoxFit.contain,
+                        )),
                         SizedBox(
                           height: 8.0,
                         ),

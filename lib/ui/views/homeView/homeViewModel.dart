@@ -24,7 +24,7 @@ class HomeViewModel extends BaseViewModel{
   HomeViewModel(){
     _list.sink.add(_news);
     DropdownMenuItem<String> allSources = DropdownMenuItem(child: Text('Source',
-      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff70F8D6))
+      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.amber)
     ), value: 'all',);
     DropdownMenuItem<String> allCategories = DropdownMenuItem(child: Text('Category',
       style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff70F8D6))
@@ -75,7 +75,7 @@ class HomeViewModel extends BaseViewModel{
     company.forEach((element) {
       String name = element.split('.').first;
       companies.add(DropdownMenuItem(child: Text(name,
-          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff70F8D6))
+          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.amber)
       ), value: element,));
     });
     category.forEach((element) {
