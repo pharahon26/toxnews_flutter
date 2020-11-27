@@ -53,6 +53,15 @@ class FlashNews {
     _company = value;
   }
 
+  // the company logo
+  String _companyLogoURL;
+  String get companyLogoURL => _companyLogoURL;
+  set companyLogoURL(String value) {
+    /// company id
+    _companyLogoURL = value;
+  }
+
+
   // category
   String _category;
   String get category => _category;

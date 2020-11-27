@@ -34,9 +34,13 @@ class FlashNewsCardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Center(child: Image.network(flashNews.mediaLink,
-                    fit: BoxFit.contain,
-                  ),),
+                  child: Center(
+                    child: Hero(
+                      tag: flashNews.id,
+                      child: Image.network(flashNews.mediaLink,
+                        fit: BoxFit.contain,
+                  ),
+                    ),),
                   flex: 2,
                 ),
                 Expanded(

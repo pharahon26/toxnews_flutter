@@ -38,8 +38,8 @@ class LogInViewModel extends BaseViewModel{
               title: 'Sign up',
               message: 'User log in successfully',
               mainButtonTitle: 'OK',
-              onMainButtonTapped: () => navigateToHome()
           );
+          navigateToHome();
         }
         else{
           _snackbarService.showSnackbar(
@@ -62,8 +62,8 @@ class LogInViewModel extends BaseViewModel{
               title: 'Sign up',
               message: 'User log in successfully',
               mainButtonTitle: 'OK',
-              onMainButtonTapped: () => navigateToHome()
           );
+          navigateToHome();
         }
         else{
           _snackbarService.showSnackbar(

@@ -32,7 +32,10 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/tox_logo.png'),
+                  Hero(
+                      tag: 'tox_logo',
+                      child: Image.asset('assets/tox_logo.png')
+                  ),
                   SizedBox(
                     height: 20.0,
                   ),

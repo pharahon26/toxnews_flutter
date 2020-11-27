@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:toxnews/services/FirebaseAuhService.dart';
@@ -12,12 +14,13 @@ class SplashScreenViewModel extends BaseViewModel{
 
   Future handleStartUpLogic() async {
     var hasLoggedInUser = await _authService.isUserLoggedIn();
-
-    if (hasLoggedInUser) {
-      navigateToHome();
-    } else {
-      navigateToLogIn();
-    }
+    Timer(Duration(seconds: 2), (){
+      if (hasLoggedInUser) {
+        navigateToHome();
+      } else {
+        navigateToLogIn();
+      }
+    });
   }
 
   void navigateToHome(){

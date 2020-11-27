@@ -23,11 +23,11 @@ class HomeViewModel extends BaseViewModel{
 
   HomeViewModel(){
     _list.sink.add(_news);
-    DropdownMenuItem<String> allSources = DropdownMenuItem(child: Text('Source',
-      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.amber)
+    DropdownMenuItem<String> allSources = DropdownMenuItem(child: Text('Company',
+      style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.white)
     ), value: 'all',);
-    DropdownMenuItem<String> allCategories = DropdownMenuItem(child: Text('Category',
-      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff70F8D6))
+    DropdownMenuItem<String> allCategories = DropdownMenuItem(child: Text('Subject',
+      style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.white)
     ), value: 'all',);
 
     companies.add(allSources);
@@ -75,12 +75,12 @@ class HomeViewModel extends BaseViewModel{
     company.forEach((element) {
       String name = element.split('.').first;
       companies.add(DropdownMenuItem(child: Text(name,
-          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.amber)
+          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.white)
       ), value: element,));
     });
     category.forEach((element) {
       categories.add(DropdownMenuItem(child: Text(element,
-          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff70F8D6))
+          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.white)
       ), value: element,));
     });
     notifyListeners();

@@ -29,10 +29,23 @@ class _LogInState extends State<LogIn> {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset('assets/tox_logo.png',
-                  height: 75.0,
-                  width: 75.0,
+                Hero(
+                  tag: 'tox_logo',
+                  child: Image.asset('assets/tox_logo.png',
+                    height: 75.0,
+                    width: 75.0,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text('Log In',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
                 Form(child: Center(
                   child: Column(
@@ -85,7 +98,6 @@ class _LogInState extends State<LogIn> {
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     children: [
-
                       SizedBox(
                         height: 10.0,
                       ),
@@ -101,13 +113,23 @@ class _LogInState extends State<LogIn> {
                                   ),
                                   onPressed: () => model.isBusy? null : model.logInWithGmail()
                               ),
+                              SizedBox(
+                                width: 40.0,
+                              ),
                               MaterialButton(
-                                child: Text('Log in',
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
+                                  child: Text('Log in',
+                                    style: Theme.of(context).textTheme.headline6,
+                                  ),
                                   onPressed: () => model.isBusy? null : model.logInWithEmailAndPassword()
                               ),
                             ],
+                          ),
+
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text('Please SIGN UP if you are new In this adventure',
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           SizedBox(
                             height: 10.0,
@@ -118,12 +140,6 @@ class _LogInState extends State<LogIn> {
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                               onPressed: () => model.navigateToSignUp()
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text('Please Sign Up if you are new In this adventure',
-                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ],
                       ),
