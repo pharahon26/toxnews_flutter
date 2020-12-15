@@ -60,50 +60,38 @@ class _HomeState extends State<Home> {
                                 color: Theme.of(context).primaryColor,
                                 onSelected: (val){setState(() {
                                   model.selectedCompany = val;
-                                  model.onSort = true;
                                   model.sort();
                                 });},
                                 itemBuilder: (BuildContext context) {
                                   return model.companiesList.map((e) => PopupMenuItem(child: Text(e), value: e, textStyle: TextStyle(color: Colors.black),)).toList();
                                 }
                             ),
-                            // DropdownButton(
-                            //     dropdownColor: Colors.white,
-                            //     items: model.companies,
-                            //     value: model.selectedCompany,
-                            //     onChanged: (value) {
-                            //       setState(() {
-                            //         model.selectedCompany = value;
-                            //         model.onSort = true;
-                            //         model.sort();
-                            //       });
-                            //     }),
-                            FlatButton.icon(
-                                    onPressed: () {
-                                      setState(() {
-                                        showDatePicker(context: this.context,
-                                            initialDate: DateTime.now(),
-                                            firstDate: DateTime(2000),
-                                            lastDate: DateTime(2050))
-                                            .then((value)  {
-                                          if(value != null){
-                                            setState(() {
-                                              model.date = value;
-                                              model.dateString = '${value.day}.${value.month}.${value.year}';
-                                              model.sort();
-                                            });
-                                          }
-                                        });
-                                      });
-                                    },
-                                    minWidth: 15.0,
-                                    label: Text(model.dateString, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-                                    icon: Icon(
-                                      Icons.date_range,
-                                      color: Colors.black,
-                                      size: 24.0,
-                                    ),
-                                  ),
+                            // FlatButton.icon(
+                            //         onPressed: () {
+                            //           setState(() {
+                            //             showDatePicker(context: this.context,
+                            //                 initialDate: DateTime.now(),
+                            //                 firstDate: DateTime(2000),
+                            //                 lastDate: DateTime(2050))
+                            //                 .then((value)  {
+                            //               if(value != null){
+                            //                 setState(() {
+                            //                   model.date = value;
+                            //                   model.dateString = '${value.day}.${value.month}.${value.year}';
+                            //                   model.sort();
+                            //                 });
+                            //               }
+                            //             });
+                            //           });
+                            //         },
+                            //         minWidth: 15.0,
+                            //         label: Text(model.dateString, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                            //         icon: Icon(
+                            //           Icons.date_range,
+                            //           color: Colors.black,
+                            //           size: 24.0,
+                            //         ),
+                            //       ),
 
                             /// category selection button
                             PopupMenuButton(
@@ -116,24 +104,13 @@ class _HomeState extends State<Home> {
                                 color: Theme.of(context).primaryColor,
                                 onSelected: (val){setState(() {
                                   model.selectedCategory = val;
-                                  model.onSort = true;
                                   model.sort();
                                 });},
                                 itemBuilder: (BuildContext context) {
                                   return model.categoriesList.map((e) => PopupMenuItem(child: Text(e), value: e, textStyle: TextStyle(color: Colors.black),)).toList();
                                 }
                             ),
-                            // DropdownButton(
-                            //     dropdownColor: Colors.white,
-                            //     items: model.categories,
-                            //     value: model.selectedCategory,
-                            //     onChanged: (value) {
-                            //       setState(() {
-                            //         model.selectedCategory = value;
-                            //         model.onSort = true;
-                            //         model.sort();
-                            //       });
-                            //     }),
+
                           ],
                         ),
                       ),

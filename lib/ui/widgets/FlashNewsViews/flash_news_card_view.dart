@@ -21,7 +21,7 @@ class FlashNewsCardView extends StatelessWidget {
     return Card(
       // color: Theme.of(context).cardColor,
       color: Colors.white70,
-      elevation: 2,
+      elevation: 5,
       // shape: RoundedRectangleBorder(
       //   borderRadius: BorderRadius.circular(8.0)
       // ),
@@ -29,66 +29,87 @@ class FlashNewsCardView extends StatelessWidget {
         height: mediaQuery.size.height/3,
         width: double.maxFinite,
         decoration: BoxDecoration(
+          /// IMAGE
           image: DecorationImage(image: NetworkImage(flashNews.mediaLink),
             fit: BoxFit.fill
           ),
         ),
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Colors.black,
-                Color(0x00000000),
-              ],
-            ),
-          ),
+            color: Colors.black.withOpacity(0.6),
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
             child: Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  /// NEWS TITLE
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Padding(
+                    child: Container(
+                      decoration: BoxDecoration(
+
+                      ),
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(flashNews.title,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
                     ),
                   ),
+                  Expanded(child: Container()),
+                  /// NEWS TEXT
                   Container(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(flashNews.news,
-                      textAlign: TextAlign.justify,
-                      style: Theme.of(context).textTheme.headline6,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white
+                      ),
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
+                      maxLines: 6,
                     ),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
+                        /// COMPANY NAME
                         Icon(Icons.web,
-                          color: Theme.of(context).accentColor,
+                          color: Colors.white,
                         ),
-                        Text(flashNews.company.split('.').first.toUpperCase(),
-                          style: Theme.of(context).textTheme.bodyText2,
+                        Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(flashNews.company.split('.').first.toUpperCase(),
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
                         ),
                         Expanded(child: Container()),
-                        Text('${date.day}.${date.month}.${date.year}',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.white70
-                          ),
+                        /// DATE
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.date_range,
+                              color: Theme.of(context).primaryColor,
+                              size: 12.0,
+                            ),
+                            Text('  ${date.day}.${date.month}.${date.year}',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

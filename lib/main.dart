@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
                 headline5: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black),
                 headline6: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white ),
                 bodyText1: TextStyle(fontSize: 14.0, color: Colors.white ),
-                bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Color(0xffD82CF5)),
+                bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Color(0xffD500F9)),
               ),
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),

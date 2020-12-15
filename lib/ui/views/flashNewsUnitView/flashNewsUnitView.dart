@@ -68,23 +68,25 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                         child: Container(
                           child: Column(
                             children: [
+                              /// IMAGE
+                              Container(width: double.infinity,
+                                  child: Image.network(model.news.mediaLink,
+                                    fit: BoxFit.contain,
+                                  )),
+                              SizedBox(
+                                height: 12.0,
+                              ),
+                              /// TITLE
                               Text(model.news.title,
                                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Theme.of(context).accentColor),),
                               SizedBox(
                                 height: 12.0,
                               ),
-                              Container(width: double.infinity,
-                                  child: Hero(
-                                    tag: model.news.id,
-                                    child: Image.network(model.news.mediaLink,
-                                      fit: BoxFit.contain,
-                                    ),
-                                  )),
-                              SizedBox(
-                                height: 12.0,
-                              ),
+
+                              /// NEWS
                               Text(model.news.news,
-                                style: TextStyle(fontSize: 16.0,
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(fontSize: 15.0,
                                     color: Colors.black,
                                     letterSpacing: 1.2,
                                 ),
@@ -99,7 +101,7 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: FlatButton(
-                          child: Text('Read the original article',
+                          child: Text('Lire à la Source',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                           onPressed: (){

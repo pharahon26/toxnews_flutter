@@ -17,9 +17,8 @@ class HomeViewModel extends BaseViewModel{
   List<String> categoriesList = List();
   String dateString = 'Last';
   DateTime date = DateTime.now();
-  String selectedCompany = 'Magazine';
+  String selectedCompany = 'Source';
   String selectedCategory = 'Topic';
-  bool onSort = false;
 
 
   Stream get list => _list.stream;
@@ -34,7 +33,7 @@ class HomeViewModel extends BaseViewModel{
     // DropdownMenuItem<String> allCategories = DropdownMenuItem(child: Text('Topic',
     //   style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black)
     // ), value: 'all',);
-    companiesList.add('Magazine');
+    companiesList.add('Source');
     categoriesList.add('Topic');
     // companies.add(allSources);
     // categories.add(allCategories);
@@ -49,7 +48,7 @@ class HomeViewModel extends BaseViewModel{
 
   Future<List<FlashNews>> _sortByCompany() async {
     List<FlashNews> result = [];
-    if(selectedCompany != 'Magazine' ){
+    if(selectedCompany != 'Source' ){
       result = await _firestoreService.getCompanyFlashNews(selectedCompany);
     }
     else {
@@ -99,11 +98,10 @@ class HomeViewModel extends BaseViewModel{
     /// Mag sort
     List<FlashNews> temp = await _sortByCompany();
     /// Date Sort
-    List<FlashNews> temp1 = await _sortByDate(temp);
+    // List<FlashNews> temp1 = await _sortByDate(temp);
     /// category sort
-    List<FlashNews> temp2 = await _sortByCategory(temp1);
+    List<FlashNews> temp2 = await _sortByCategory(temp);
     _list.sink.add(temp2);
-    onSort = false;
     notifyListeners();
   }
 
