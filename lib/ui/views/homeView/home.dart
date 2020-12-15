@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
     return ViewModelBuilder<HomeViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 title: Text(
                   'Home',
                   style: Theme.of(context).textTheme.headline6,
@@ -28,70 +29,111 @@ class _HomeState extends State<Home> {
                 backgroundColor: Theme.of(context).primaryColorDark,
               ),
               body: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0, 0.17],
-                    colors: [
-                      Theme.of(context).primaryColorDark,
-                      Theme.of(context).cardColor,
-                    ]
-                  )
-                ),
+                color: Colors.white,
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       flex: 1,
-                      child: SizedBox(
+                      child: Container(
                         width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColorDark,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(30.0),
+                            bottomRight: Radius.circular(30.0)
+                          )
+                        ),
+
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             /// companies selection button
-                            DropdownButton(
-                                dropdownColor:
-                                    Theme.of(context).primaryColorDark,
-                                items: model.companies,
-                                value: model.selectedCompany,
-                                onChanged: (value) {
-                                  setState(() {
-                                    model.selectedCompany = value;
-                                    model.onSort = true;
-                                    model.sort();
-                                  });
-                                }),
-                            // model.onSort
-                            //     ? FlatButton(
-                            //         onPressed: () {
-                            //           setState(() {
-                            //             model.sort();
-                            //           });
-                            //         },
-                            //         minWidth: 15.0,
-                            //         child: Icon(
-                            //           Icons.sort,
-                            //           color: Theme.of(context).accentColor,
-                            //           size: 24.0,
-                            //         ),
-                            //       )
-                            //     : Divider(),
+                            PopupMenuButton(
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.web, color: Colors.white,),
+                                    Text(model.selectedCompany, style: TextStyle(color: Colors.white),),
+                                  ],
+                                ),
+                                color: Theme.of(context).primaryColor,
+                                onSelected: (val){setState(() {
+                                  model.selectedCompany = val;
+                                  model.onSort = true;
+                                  model.sort();
+                                });},
+                                itemBuilder: (BuildContext context) {
+                                  return model.companiesList.map((e) => PopupMenuItem(child: Text(e), value: e, textStyle: TextStyle(color: Colors.black),)).toList();
+                                }
+                            ),
+                            // DropdownButton(
+                            //     dropdownColor: Colors.white,
+                            //     items: model.companies,
+                            //     value: model.selectedCompany,
+                            //     onChanged: (value) {
+                            //       setState(() {
+                            //         model.selectedCompany = value;
+                            //         model.onSort = true;
+                            //         model.sort();
+                            //       });
+                            //     }),
+                            FlatButton.icon(
+                                    onPressed: () {
+                                      setState(() {
+                                        showDatePicker(context: this.context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(2000),
+                                            lastDate: DateTime(2050))
+                                            .then((value)  {
+                                          if(value != null){
+                                            setState(() {
+                                              model.date = value;
+                                              model.dateString = '${value.day}.${value.month}.${value.year}';
+                                              model.sort();
+                                            });
+                                          }
+                                        });
+                                      });
+                                    },
+                                    minWidth: 15.0,
+                                    label: Text(model.dateString, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                                    icon: Icon(
+                                      Icons.date_range,
+                                      color: Colors.black,
+                                      size: 24.0,
+                                    ),
+                                  ),
 
                             /// category selection button
-                            DropdownButton(
-                                dropdownColor:
-                                    Theme.of(context).primaryColorDark,
-                                items: model.categories,
-                                value: model.selectedCategory,
-                                onChanged: (value) {
-                                  setState(() {
-                                    model.selectedCategory = value;
-                                    model.onSort = true;
-                                    model.sort();
-                                  });
-                                }),
+                            PopupMenuButton(
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.turned_in_not_outlined, color: Colors.white,),
+                                    Text(model.selectedCategory, style: TextStyle(color: Colors.white),),
+                                  ],
+                                ),
+                                color: Theme.of(context).primaryColor,
+                                onSelected: (val){setState(() {
+                                  model.selectedCategory = val;
+                                  model.onSort = true;
+                                  model.sort();
+                                });},
+                                itemBuilder: (BuildContext context) {
+                                  return model.categoriesList.map((e) => PopupMenuItem(child: Text(e), value: e, textStyle: TextStyle(color: Colors.black),)).toList();
+                                }
+                            ),
+                            // DropdownButton(
+                            //     dropdownColor: Colors.white,
+                            //     items: model.categories,
+                            //     value: model.selectedCategory,
+                            //     onChanged: (value) {
+                            //       setState(() {
+                            //         model.selectedCategory = value;
+                            //         model.onSort = true;
+                            //         model.sort();
+                            //       });
+                            //     }),
                           ],
                         ),
                       ),

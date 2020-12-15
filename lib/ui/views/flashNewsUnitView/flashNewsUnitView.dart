@@ -22,7 +22,7 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<FlashNewsUnitViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
-          backgroundColor: Theme.of(context).cardColor,
+          backgroundColor: Colors.white,
           body: CustomScrollView(
             physics: BouncingScrollPhysics(),
             slivers: [
@@ -36,11 +36,8 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                   background: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Hero(
-                        tag: model.news.id,
-                        child: Image.network(model.news.companyLogoURL,
-                          fit: BoxFit.cover,
-                        ),
+                      Image.network(model.news.companyLogoURL,
+                        fit: BoxFit.cover,
                       ),
                     DecoratedBox(
                       decoration: BoxDecoration(
@@ -71,32 +68,50 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                         child: Container(
                           child: Column(
                             children: [
-                              Text(model.news.title, style: Theme.of(context).textTheme.headline3,),
+                              Text(model.news.title,
+                                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Theme.of(context).accentColor),),
                               SizedBox(
-                                height: 8.0,
+                                height: 12.0,
                               ),
                               Container(width: double.infinity,
-                                  child: Image.network(model.news.mediaLink,
-                                    fit: BoxFit.contain,
+                                  child: Hero(
+                                    tag: model.news.id,
+                                    child: Image.network(model.news.mediaLink,
+                                      fit: BoxFit.contain,
+                                    ),
                                   )),
                               SizedBox(
-                                height: 8.0,
+                                height: 12.0,
                               ),
                               Text(model.news.news,
-                                style: Theme.of(context).textTheme.bodyText1,
-                                textAlign: TextAlign.justify,
+                                style: TextStyle(fontSize: 16.0,
+                                    color: Colors.black,
+                                    letterSpacing: 1.2,
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      FlatButton(
-                        child: Text('Read the original article',
-                          style: Theme.of(context).textTheme.bodyText2,
+                      SizedBox(
+                        height: 12.0,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: FlatButton(
+                          child: Text('Read the original article',
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
+                          onPressed: (){
+                            model.reachBase();
+                          },
+                          shape: OutlineInputBorder(
+                            gapPadding: 3.0,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).accentColor,
+                            )
+                          ),
                         ),
-                        onPressed: (){
-                          model.reachBase();
-                        },
                       ),
                       /// news Text
                     ]

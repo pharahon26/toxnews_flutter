@@ -81,7 +81,7 @@ class FirebaseFirestoreService{
     // result.add(t1);
     // result.add(t2);
     result.forEach((news) {
-      print('FIRESTORE SERVICE: FlashNews LIST: ${news.id} ${news.title} ${news.news} ${news.link} ${news.company} ${news.category} ${news.creationDate} ');
+      print('FIRESTORE SERVICE: FlashNews LIST: ${news.id} ${news.title} ${news.news} ${news.link} ${news.company} ${news.category} ${DateTime.fromMillisecondsSinceEpoch(news.creationDate)} ');
     });
     return result;
   }

@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:toxnews/models/FlashNews.dart';
@@ -12,8 +13,12 @@ class HomeViewModel extends BaseViewModel{
   StreamController _list = StreamController<List<FlashNews>>();
   List<DropdownMenuItem<String>> companies = List();
   List<DropdownMenuItem<String>> categories = List();
-  String selectedCompany = 'all';
-  String selectedCategory = 'all';
+  List<String> companiesList = List();
+  List<String> categoriesList = List();
+  String dateString = 'Last';
+  DateTime date = DateTime.now();
+  String selectedCompany = 'Magazine';
+  String selectedCategory = 'Topic';
   bool onSort = false;
 
 
@@ -23,15 +28,16 @@ class HomeViewModel extends BaseViewModel{
 
   HomeViewModel(){
     _list.sink.add(_news);
-    DropdownMenuItem<String> allSources = DropdownMenuItem(child: Text('Company',
-      style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.white)
-    ), value: 'all',);
-    DropdownMenuItem<String> allCategories = DropdownMenuItem(child: Text('Subject',
-      style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.white)
-    ), value: 'all',);
-
-    companies.add(allSources);
-    categories.add(allCategories);
+    // DropdownMenuItem<String> allSources = DropdownMenuItem(child: Text('Magazine',
+    //   style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black)
+    // ), value: 'all',);
+    // DropdownMenuItem<String> allCategories = DropdownMenuItem(child: Text('Topic',
+    //   style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black)
+    // ), value: 'all',);
+    companiesList.add('Magazine');
+    categoriesList.add('Topic');
+    // companies.add(allSources);
+    // categories.add(allCategories);
     setNews();
   }
 
@@ -41,26 +47,62 @@ class HomeViewModel extends BaseViewModel{
     _list.sink.add(_news);
   }
 
-  void sort() async {
-    List<FlashNews> temp = List();
-    if(selectedCompany != 'all'){
-      temp = await _firestoreService.getCompanyFlashNews(selectedCompany);
+  Future<List<FlashNews>> _sortByCompany() async {
+    List<FlashNews> result = [];
+    if(selectedCompany != 'Magazine' ){
+      result = await _firestoreService.getCompanyFlashNews(selectedCompany);
     }
     else {
-      temp = await _firestoreService.getFlashNews();
+      result = await _firestoreService.getFlashNews();
     }
-    if(selectedCategory != 'all'){
-      List<FlashNews> result = List();
-      temp.forEach((element) {
+    return result;
+  }
+
+  Future<List<FlashNews>> _sortByDate(List<FlashNews> list) async {
+    List<FlashNews> result = [];
+    DateTime now = DateTime.now();
+    if(date.day == now.day && date.month == now.month && date.year == now.year){
+      list.forEach((element) {result.add(element);});
+      dateString = 'Last';
+      print('Last Day');
+    }
+    else {
+      print('not Last Day');
+      list.forEach((element) {
+        DateTime t = DateTime.fromMillisecondsSinceEpoch(element.creationDate);
+        if (date.day == t.day && date.month == t.month && date.year == t.year) {
+          print('Match Day');
+          result.add(element);
+        }
+      });
+    }
+    return result;
+  }
+
+  Future<List<FlashNews>> _sortByCategory(List<FlashNews> list) async {
+    List<FlashNews> result = [];
+    if( selectedCompany != 'Topic' ){
+      list.forEach((element) {
         if(element.category == selectedCategory){
           result.add(element);
         }
       });
-      _list.sink.add(result);
     }
     else {
-      _list.sink.add(temp);
+      list.forEach((element) {result.add(element);});
     }
+    return result;
+  }
+
+
+  sort() async {
+    /// Mag sort
+    List<FlashNews> temp = await _sortByCompany();
+    /// Date Sort
+    List<FlashNews> temp1 = await _sortByDate(temp);
+    /// category sort
+    List<FlashNews> temp2 = await _sortByCategory(temp1);
+    _list.sink.add(temp2);
     onSort = false;
     notifyListeners();
   }
@@ -74,14 +116,16 @@ class HomeViewModel extends BaseViewModel{
     });
     company.forEach((element) {
       String name = element.split('.').first;
-      companies.add(DropdownMenuItem(child: Text(name,
-          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.white)
-      ), value: element,));
+      companiesList.add(name);
+      // companies.add(DropdownMenuItem(child: Text(name,
+      //     style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.black)
+      // ), value: element,));
     });
     category.forEach((element) {
-      categories.add(DropdownMenuItem(child: Text(element,
-          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.white)
-      ), value: element,));
+      categoriesList.add(element);
+      // categories.add(DropdownMenuItem(child: Text(element,
+      //     style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.black)
+      // ), value: element,));
     });
     notifyListeners();
   }
