@@ -17,13 +17,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<HomeViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
                 automaticallyImplyLeading: false,
                 title: Text(
                   'Home',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 backgroundColor: Theme.of(context).primaryColorDark,
                 centerTitle: true,
@@ -43,6 +44,7 @@ class _HomeState extends State<Home> {
                           children: [
                             /// Date Button
                             MaterialButton(
+                              minWidth: mediaQuery.size.width/3,
                               onPressed: () {
                                 setState(() {
                                   showDatePicker(context: this.context,

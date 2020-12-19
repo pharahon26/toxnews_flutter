@@ -52,7 +52,6 @@ class _LogInState extends State<LogIn> {
                                 color: Color(0xff30B19F)
                             ),
                           ),
-
                         ],
                       ),
                       SizedBox(
