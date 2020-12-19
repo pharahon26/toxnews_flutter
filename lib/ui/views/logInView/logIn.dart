@@ -20,8 +20,9 @@ class _LogInState extends State<LogIn> {
         builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Text('Log In',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.headline4,
             ),
             centerTitle: true,
             backgroundColor: Theme.of(context).primaryColorDark,
@@ -29,27 +30,41 @@ class _LogInState extends State<LogIn> {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Hero(
-                  tag: 'tox_logo',
-                  child: Image.asset('assets/tox_logo.png',
-                    height: 75.0,
-                    width: 75.0,
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text('Log In',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
                 Form(child: Center(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      /// WELCOME TEXT
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Welcome back to ',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          Text('Toxnews',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff30B19F)
+                            ),
+                          ),
+
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Text('Sign In',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
                       // Mail
                       TextFormField(
                         style: Theme.of(context).textTheme.bodyText1,
@@ -57,13 +72,13 @@ class _LogInState extends State<LogIn> {
                             labelText: "Mail",
                             labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                             enabledBorder:  UnderlineInputBorder(
-                              borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                              borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
                             ) ,
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Theme.of(context).primaryColor),
                             ) ,
                             hintStyle: TextStyle(
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).accentColor.withAlpha(200),
                             )
                         ),
                         onChanged: (mail) {
@@ -77,13 +92,13 @@ class _LogInState extends State<LogIn> {
                               labelText: "Password",
                               labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                               enabledBorder:  UnderlineInputBorder(
-                                borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                                borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
                               ) ,
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Theme.of(context).primaryColor),
                               ) ,
                               hintStyle: TextStyle(
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).accentColor.withOpacity(0.8),
                               )
                           ),
                         onChanged: (password){
@@ -97,49 +112,54 @@ class _LogInState extends State<LogIn> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       SizedBox(
                         height: 10.0,
                       ),
                       Column(
                         children: [
+                          /// SIGN UP LINK
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              RaisedButton(
-                                  color: Colors.red,
-                                  child: Text('Gmail',
-                                    style: Theme.of(context).textTheme.headline6,
-                                  ),
-                                  onPressed: () => model.isBusy? null : model.logInWithGmail()
+                              Text('Newcomer? not for long ',
+                                style: TextStyle(fontSize: 12.0, color: Colors.black ),
                               ),
-                              SizedBox(
-                                width: 40.0,
+                              GestureDetector(
+                                child: Text(' Sign up',
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                ),
+                                  onTap: () => model.navigateToSignUp(),
                               ),
-                              MaterialButton(
-                                  child: Text('Log in',
-                                    style: Theme.of(context).textTheme.headline6,
-                                  ),
-                                  onPressed: () => model.isBusy? null : model.logInWithEmailAndPassword()
-                              ),
+
                             ],
                           ),
-
                           SizedBox(
                             height: 10.0,
                           ),
-                          Text('Please SIGN UP if you are new In this adventure',
-                            style: Theme.of(context).textTheme.bodyText2,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          RaisedButton(
-                              color: Theme.of(context).accentColor,
-                              child: Text('Sign Up',
-                                style: Theme.of(context).textTheme.headline6,
+                          MaterialButton(
+                              minWidth: double.maxFinite,
+                              color: Colors.red,
+                              child: Text('Log in with your google account',
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
-                              onPressed: () => model.navigateToSignUp()
+                              onPressed: () => model.isBusy? null : model.logInWithGmail()
+                          ),
+                          SizedBox(
+                            width: 40.0,
+                          ),
+                          MaterialButton(
+                            minWidth: double.maxFinite,
+                            color: Theme.of(context).primaryColorDark,
+                              child: Text('Log in',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              onPressed: () => model.isBusy? null : model.logInWithEmailAndPassword()
+                          ),
+                          SizedBox(
+                            height: 10.0,
                           ),
                         ],
                       ),

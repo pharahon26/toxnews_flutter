@@ -21,7 +21,7 @@ class _SignUpState extends State<SignUp> {
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text('Register',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.headline4,
             ),
             centerTitle: true,
             backgroundColor: Theme.of(context).primaryColorDark,
@@ -29,14 +29,41 @@ class _SignUpState extends State<SignUp> {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset('assets/tox_logo.png',
-                  height: 75.0,
-                  width: 75.0,
-                ),
                 Form(child: Center(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      /// WELCOME TEXT
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Welcome to ',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          Text('TOXNEWS',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff30B19F)
+                            ),
+                          ),
+
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Text('Sign Up',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
                       // Name
                       TextFormField(
                         style: Theme.of(context).textTheme.bodyText1,
@@ -44,7 +71,7 @@ class _SignUpState extends State<SignUp> {
                             labelText: "Name",
                             labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                             enabledBorder:  UnderlineInputBorder(
-                              borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                              borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
                             ) ,
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Theme.of(context).primaryColor),
@@ -64,13 +91,13 @@ class _SignUpState extends State<SignUp> {
                             labelText: "Mail",
                             labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                             enabledBorder:  UnderlineInputBorder(
-                              borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                              borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
                             ) ,
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Theme.of(context).primaryColor),
                             ) ,
                             hintStyle: TextStyle(
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).accentColor.withAlpha(200),
                             )
                         ),
                         onChanged: (mail) {
@@ -84,13 +111,13 @@ class _SignUpState extends State<SignUp> {
                             labelText: "Password",
                             labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                             enabledBorder:  UnderlineInputBorder(
-                              borderSide: BorderSide(color: Theme.of(context).primaryColorLight),
+                              borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
                             ) ,
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Theme.of(context).primaryColor),
                             ) ,
                             hintStyle: TextStyle(
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).accentColor.withOpacity(0.8),
                             )
                         ),
                         onChanged: (password){
@@ -100,22 +127,90 @@ class _SignUpState extends State<SignUp> {
                       /// the buttons for the Social network next
                     ],
                   ),
-                )
-                ),
-                MaterialButton(
-                  child: Text('Register with mail',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                    onPressed: () => model.signUpWithEmailAndPassword()
-                ),
-                RaisedButton(
-                  color: Colors.red,
-                  child: Text('Sign up with Gmail',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                    onPressed: () => model.signUpWithGmail()
-                )
+                )),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Column(
+                        children: [
+                          /// SIGN UP LINK
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('You may agree to our ',
+                                style: TextStyle(fontSize: 12.0, color: Colors.black ),
+                              ),
+                              /// terms and conditions
+                              GestureDetector(
+                                child: Text('Terms and Conditions',
+                                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff30B19F)),
+                                ),
+                                onTap: () {
+                                  /// show dialog
+                                },
+                              ),
+                              Text(',',
+                                style: TextStyle(fontSize: 12.0, color: Colors.black ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('and ',
+                                style: TextStyle(fontSize: 12.0, color: Colors.black ),
+                              ),
+                              /// Privacy Policy
+                              GestureDetector(
+                                child: Text('Privacy Policy',
+                                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff30B19F)),
+                                ),
+                                onTap: () {
+                                  /// show dialog
+                                },
+                              ),
+                            ],
+                          ),
 
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          /// google sign in
+                          MaterialButton(
+                              minWidth: double.maxFinite,
+                              color: Colors.red,
+                              child: Text('Sign up with google account',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              onPressed: () => model.isBusy? null : model.signUpWithGmail()
+                          ),
+                          SizedBox(
+                            width: 40.0,
+                          ),
+                          /// email and password sign in
+                          MaterialButton(
+                              minWidth: double.maxFinite,
+                              color: Theme.of(context).primaryColorDark,
+                              child: Text('Sign Up with mail',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              onPressed: () => model.isBusy? null : model.signUpWithEmailAndPassword()
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

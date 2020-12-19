@@ -84,7 +84,7 @@ class FlashNewsCardView extends StatelessWidget {
                       child: Text(flashNews.news,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 14.0,
+                            fontSize: 12.0,
                             color: Colors.black
                         ),
                         softWrap: true,
