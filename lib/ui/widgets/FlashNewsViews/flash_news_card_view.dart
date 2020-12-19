@@ -20,106 +20,110 @@ class FlashNewsCardView extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     return Card(
       // color: Theme.of(context).cardColor,
-      color: Colors.white70,
+      color: Colors.white,
       elevation: 5,
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.circular(8.0)
-      // ),
-      child: Container(
-        height: mediaQuery.size.height/3,
-        width: double.maxFinite,
-        decoration: BoxDecoration(
-          /// IMAGE
-          image: DecorationImage(image: NetworkImage(flashNews.mediaLink),
-            fit: BoxFit.fill
-          ),
-        ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4.0)
+      ),
+      child: GestureDetector(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => FlashNewsUnitView(news: flashNews,)));
+        },
         child: Container(
-            color: Colors.black.withOpacity(0.6),
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
-            child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  /// NEWS TITLE
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      decoration: BoxDecoration(
+          height: mediaQuery.size.height/3,
+          width: double.infinity,
+          // padding: EdgeInsets.all(8.0),
+          // decoration: BoxDecoration(
+          //   /// IMAGE
+          //   image: DecorationImage(image: NetworkImage(flashNews.mediaLink),
+          //     fit: BoxFit.fill
+          //   ),
+          // ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              /// News Picture
+              Expanded(
+                flex: 1,
+                child: Hero(
+                  tag: flashNews.id,
+                  child: Image.network(flashNews.mediaLink,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    alignment: Alignment.topCenter,
+                  ),
+                ),
+              ),
 
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    /// NEWS TITLE
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(flashNews.title,
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).primaryColorDark
+                          ),
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
                       ),
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(flashNews.title,
+                    ),
+                    /// NEWS TEXT
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(flashNews.news,
+                        textAlign: TextAlign.left,
                         style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
+                            fontSize: 14.0,
+                            color: Colors.black
                         ),
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                        maxLines: 3,
                       ),
                     ),
-                  ),
-                  Expanded(child: Container()),
-                  /// NEWS TEXT
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(flashNews.news,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white
-                      ),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 6,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        /// COMPANY NAME
-                        Icon(Icons.web,
-                          color: Colors.white,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Text(flashNews.company.split('.').first.toUpperCase(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Row(
+                        children: [
+                          /// COMPANY NAME
+                          Icon(Icons.web,
+                            color: Theme.of(context).accentColor,
                           ),
-                        ),
-                        Expanded(child: Container()),
-                        /// DATE
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.date_range,
-                              color: Theme.of(context).primaryColor,
-                              size: 12.0,
+                          Text(flashNews.company.split('.').first.toUpperCase(),
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                          Expanded(child: Container()),
+                          /// DATE
+                          Icon(
+                            Icons.date_range,
+                            color: Colors.black,
+                            size: 12.0,
+                          ),
+                          Text('  ${date.day}.${date.month}.${date.year}',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black,
                             ),
-                            Text('  ${date.day}.${date.month}.${date.year}',
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => FlashNewsUnitView(news: flashNews,)));
-            },
+
+            ],
           ),
         ),
       )

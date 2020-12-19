@@ -70,15 +70,18 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                             children: [
                               /// IMAGE
                               Container(width: double.infinity,
-                                  child: Image.network(model.news.mediaLink,
-                                    fit: BoxFit.contain,
+                                  child: Hero(
+                                    tag: model.news.id,
+                                    child: Image.network(model.news.mediaLink,
+                                      fit: BoxFit.contain,
+                                    ),
                                   )),
                               SizedBox(
                                 height: 12.0,
                               ),
                               /// TITLE
                               Text(model.news.title,
-                                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Theme.of(context).accentColor),),
+                                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark),),
                               SizedBox(
                                 height: 12.0,
                               ),
@@ -88,7 +91,7 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(fontSize: 15.0,
                                     color: Colors.black,
-                                    letterSpacing: 1.2,
+                                    // letterSpacing: 1.2,
                                 ),
                               ),
                             ],
@@ -100,19 +103,25 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: FlatButton(
+                        child: MaterialButton(
+                          color: Theme.of(context).primaryColorDark,
+                          elevation: 3.0,
                           child: Text('Lire à la Source',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                            ),
                           ),
                           onPressed: (){
                             model.reachBase();
                           },
-                          shape: OutlineInputBorder(
-                            gapPadding: 3.0,
-                            borderSide: BorderSide(
-                              color: Theme.of(context).accentColor,
-                            )
-                          ),
+                          // shape: OutlineInputBorder(
+                          //   gapPadding: 3.0,
+                          //   borderSide: BorderSide(
+                          //     color: Theme.of(context).primaryColorDark,
+                          //   )
+                          // ),
                         ),
                       ),
                       /// news Text
