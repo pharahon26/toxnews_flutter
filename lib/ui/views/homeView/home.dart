@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:toxnews/generated/l10n.dart';
 import 'package:toxnews/models/FlashNews.dart';
 import 'package:toxnews/ui/views/homeView/homeViewModel.dart';
 
@@ -15,6 +16,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    S.load(Locale('fr'));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -23,8 +33,20 @@ class _HomeState extends State<Home> {
               appBar: AppBar(
                 automaticallyImplyLeading: false,
                 title: Text(
-                  'Home',
+                  S.of(context).pageNameHome,
                   style: Theme.of(context).textTheme.headline4,
+                ),
+                actions: [
+                  Padding(padding: EdgeInsets.only(right: 20.0),
+                    child: GestureDetector(
+                      child: Icon(Icons.info_outline),
+                      onTap: () => model.navigateToAbout(),
+                    ),
+                  )
+                ],
+                actionsIconTheme: IconThemeData(
+                  size: 25.0,
+                  color: Colors.white
                 ),
                 backgroundColor: Theme.of(context).primaryColorDark,
                 centerTitle: true,
@@ -161,10 +183,18 @@ class _HomeState extends State<Home> {
                             stream: model.list,
                             builder: (context, snapshot) {
                               if(snapshot.connectionState == ConnectionState.waiting){
-                                return CircularProgressIndicator();
+                                return Container(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  child: CircularProgressIndicator(),
+                                );
                               }
                               if(snapshot.connectionState == ConnectionState.none){
-                                return CircularProgressIndicator();
+                                return Container(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  child: CircularProgressIndicator(),
+                                );
                               }
                               if(snapshot.hasData){
                                 return ListView.builder(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:toxnews/generated/l10n.dart';
 import 'package:toxnews/ui/views/splashSreenView/splashScreenViewModel.dart';
 
 /**
@@ -14,6 +15,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SplashScreenViewModel>.reactive(
@@ -21,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
           appBar: AppBar(
-            title: Text('Welcome',
+            title: Text(S.of(context).pageNameWelcome,
               style: Theme.of(context).textTheme.headline6,
             ),
             centerTitle: true,

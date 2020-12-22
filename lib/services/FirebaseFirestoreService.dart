@@ -10,7 +10,6 @@ class FirebaseFirestoreService{
   CollectionReference _user_collection;
   Query _flash_news_collection;
   ToxNewsUsers _toxNewsUser;
-  List<FlashNews> _flashNews = List();
 
   FirebaseFirestoreService(){
     _user_collection = _firestore.collection(ToxNewsUsers.REF_FIREBASE_FIRESTORE);
@@ -22,7 +21,7 @@ class FirebaseFirestoreService{
   Future createUserData(ToxNewsUsers users) async {
     // a supp
     if (_user_collection != null){
-      await _user_collection.doc(users.id).set(users.toJson()).catchError((error) => print("Failed to add user: $error"));
+      return await _user_collection.doc(users.id).set(users.toJson()).catchError((error) => print("Failed to add user: $error"));
     }
   }
 
@@ -42,7 +41,7 @@ class FirebaseFirestoreService{
   /// update User data
   Future updateUserData(ToxNewsUsers users) async {
     if (_user_collection != null){
-      await _user_collection.doc(users.id).update(users.toJson()).catchError((error) => print("Failed to add user: $error"));
+      return await _user_collection.doc(users.id).update(users.toJson()).catchError((error) => print("Failed to add user: $error"));
     }
   }
 

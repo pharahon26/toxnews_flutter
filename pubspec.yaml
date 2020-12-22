@@ -40,8 +40,8 @@ dependencies:
 #  URL Dependency
   url_launcher: ^5.7.10
 #  Localization dependency
-  flutter_localizations:
-    sdk: flutter
+  intl: ^0.16.1
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -55,6 +55,8 @@ dev_dependencies:
   injectable_generator: ^1.0.6
   json_serializable: ^3.5.0
   flutter_launcher_icons: "^0.8.0"
+  flutter_localizations:
+    sdk: flutter
 
 flutter_icons:
   android: true

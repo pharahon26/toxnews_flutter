@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:toxnews/generated/l10n.dart';
 import 'package:toxnews/ui/views/signUpView/signUpViewModel.dart';
 
 /**
@@ -20,7 +21,7 @@ class _SignUpState extends State<SignUp> {
         builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
-            title: Text('Register',
+            title: Text(S.of(context).pageNameRegister,
               style: Theme.of(context).textTheme.headline4,
             ),
             centerTitle: true,
@@ -41,10 +42,10 @@ class _SignUpState extends State<SignUp> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Welcome to ',
+                          Text(S.of(context).textWelcome,
                             style: Theme.of(context).textTheme.headline6,
                           ),
-                          Text('TOXNEWS',
+                          Text(S.of(context).appTitle,
                             style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -57,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                       SizedBox(
                         height: 30.0,
                       ),
-                      Text('Sign Up',
+                      Text(S.of(context).pageNameSignUp,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline6,
                       ),
@@ -68,7 +69,7 @@ class _SignUpState extends State<SignUp> {
                       TextFormField(
                         style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
-                            labelText: "Name",
+                            labelText: S.of(context).buttonName,
                             labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                             enabledBorder:  UnderlineInputBorder(
                               borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
@@ -88,7 +89,7 @@ class _SignUpState extends State<SignUp> {
                       TextFormField(
                         style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
-                            labelText: "Mail",
+                            labelText: S.of(context).buttonMail,
                             labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                             enabledBorder:  UnderlineInputBorder(
                               borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
@@ -108,7 +109,7 @@ class _SignUpState extends State<SignUp> {
                       TextFormField(
                         style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
-                            labelText: "Password",
+                            labelText: S.of(context).buttonPassword,
                             labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                             enabledBorder:  UnderlineInputBorder(
                               borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
@@ -143,16 +144,41 @@ class _SignUpState extends State<SignUp> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('You may agree to our ',
+                              Text(S.of(context).textAgree,
                                 style: TextStyle(fontSize: 12.0, color: Colors.black ),
                               ),
                               /// terms and conditions
                               GestureDetector(
-                                child: Text('Terms and Conditions',
+                                child: Text(S.of(context).textTerms,
                                   style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff30B19F)),
                                 ),
-                                onTap: () {
-                                  /// show dialog
+                                onTap: (){
+                                  showDialog<void>(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    // false = user must tap button, true = tap outside dialog
+                                    builder: (BuildContext dialogContext) {
+                                      return AlertDialog(
+                                        title: Text(S.of(context).textTerms),
+                                        content: SingleChildScrollView(
+                                          child: Text(S.of(context).textTermsText,
+                                              style: TextStyle(fontSize: 12.0, color: Colors.black )
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text(S.of(context).buttonClose,
+                                                style: TextStyle(fontSize: 12.0, color: Theme.of(context).accentColor )
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(dialogContext)
+                                                  .pop(); // Dismiss alert dialog
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 },
                               ),
                               Text(',',
@@ -164,21 +190,57 @@ class _SignUpState extends State<SignUp> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('and ',
+                              Text(S.of(context).textAnd,
                                 style: TextStyle(fontSize: 12.0, color: Colors.black ),
                               ),
                               /// Privacy Policy
                               GestureDetector(
-                                child: Text('Privacy Policy',
+                                child: Text(S.of(context).privacy,
                                   style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xff30B19F)),
                                 ),
                                 onTap: () {
                                   /// show dialog
+                                  showDialog<void>(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    // false = user must tap button, true = tap outside dialog
+                                    builder: (BuildContext dialogContext) {
+                                      return AlertDialog(
+                                        title: Text(S.of(context).privacy),
+                                        content: SingleChildScrollView(
+                                          child: Text(S.of(context).privacyText,
+                                              style: TextStyle(fontSize: 12.0, color: Colors.black )
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text(S.of(context).buttonClose,
+                                                  style: TextStyle(fontSize: 12.0, color: Theme.of(context).accentColor )
+                                              ),
+                                            onPressed: () {
+                                              Navigator.of(dialogContext)
+                                                  .pop(); // Dismiss alert dialog
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 },
                               ),
                             ],
                           ),
-
+                          CheckboxListTile(
+                              value: model.hasAgree,
+                              onChanged: (check){
+                                setState(() {
+                                  model.hasAgree = check;
+                                });
+                              },
+                            title: Text( S.of(context).textGiveAgreement,
+                              style: TextStyle(fontSize: 14.0, color: Colors.black ),
+                            ),
+                          ),
                           SizedBox(
                             height: 10.0,
                           ),
@@ -186,7 +248,7 @@ class _SignUpState extends State<SignUp> {
                           MaterialButton(
                               minWidth: double.maxFinite,
                               color: Colors.red,
-                              child: Text('Sign up with google account',
+                              child: Text(S.of(context).buttonGoogleSignUp,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               onPressed: () => model.isBusy? null : model.signUpWithGmail()
@@ -198,7 +260,7 @@ class _SignUpState extends State<SignUp> {
                           MaterialButton(
                               minWidth: double.maxFinite,
                               color: Theme.of(context).primaryColorDark,
-                              child: Text('Sign Up with mail',
+                              child: Text(S.of(context).pageNameSignUp,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               onPressed: () => model.isBusy? null : model.signUpWithEmailAndPassword()

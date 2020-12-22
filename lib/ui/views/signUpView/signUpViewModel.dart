@@ -25,58 +25,68 @@ class SignUpViewModel extends BaseViewModel{
     _password = value;
   }
 
+  bool _hasAgree = false;
+  bool get hasAgree => _hasAgree;
+  set hasAgree(bool value) {
+    _hasAgree = value;
+  }
+
   void navigateToHome(){
     _navigationService.navigateTo(Routes.home);
   }
 
   void signUpWithEmailAndPassword() async {
     /// Sign up with email and password
-    setBusy(true);
-    await _authService.signUpWithEmailAndPassword(name: _name, mail: _mail, password: _password).then((value) {
+    if(_hasAgree){
+      setBusy(true);
+      var sign = await _authService.signUpWithEmailAndPassword(name: _name, mail: _mail, password: _password);
       setBusy(false);
-      if(value is bool){
-        if(value == true){
+      if(sign is bool){
+        if(sign == true){
           _snackbarService.showSnackbar(
-              title: 'Sign up',
-              message: 'User Created successfully',
-              mainButtonTitle: 'OK',
+            title: 'Sign up',
+            message: 'User Created successfully',
+            mainButtonTitle: 'OK',
           );
           navigateToHome();
         }
         else{
           _snackbarService.showSnackbar(
-              title: 'Sign up',
-              message: 'Error user Creation failed',
-              mainButtonTitle: 'OK',
+            title: 'Sign up',
+            message: 'Error user Creation failed',
+            mainButtonTitle: 'OK',
           );
         }
       }
-    });
+    }
+
   }
 
   void signUpWithGmail() async {
     /// Sign up with Gmail
-    setBusy(true);
-    await _authService.signUpWithGmail().then((value) {
+    if (_hasAgree){
+      setBusy(true);
+      var sign = await _authService.signUpWithGmail();
       setBusy(false);
-      if(value is bool){
-        if(value == true){
+      if(sign is bool){
+        if(sign == true){
           _snackbarService.showSnackbar(
-              title: 'Sign up',
-              message: 'User Created successfully',
-              mainButtonTitle: 'OK',
+            title: 'Sign up',
+            message: 'User Created successfully',
+            mainButtonTitle: 'OK',
           );
           navigateToHome();
         }
         else{
           _snackbarService.showSnackbar(
-              title: 'Sign up',
-              message: 'Error user Creation failed',
-              mainButtonTitle: 'OK',
+            title: 'Sign up',
+            message: 'Error user Creation failed',
+            mainButtonTitle: 'OK',
           );
         }
       }
-    });
+    }
+
   }
 
 

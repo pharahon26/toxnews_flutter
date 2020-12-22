@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:toxnews/generated/l10n.dart';
 import 'package:toxnews/ui/views/logInView/logInViewModel.dart';
 
 /**
@@ -21,7 +22,7 @@ class _LogInState extends State<LogIn> {
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text('Log In',
+            title: Text(S.of(context).pageNameSignIn,
               style: Theme.of(context).textTheme.headline4,
             ),
             centerTitle: true,
@@ -42,10 +43,10 @@ class _LogInState extends State<LogIn> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Welcome back to ',
+                          Text(S.of(context).textWelcomeBack,
                             style: Theme.of(context).textTheme.headline6,
                           ),
-                          Text('Toxnews',
+                          Text(S.of(context).appTitle,
                             style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -57,7 +58,7 @@ class _LogInState extends State<LogIn> {
                       SizedBox(
                         height: 30.0,
                       ),
-                      Text('Sign In',
+                      Text(S.of(context).pageNameSignIn,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline6,
                       ),
@@ -68,7 +69,7 @@ class _LogInState extends State<LogIn> {
                       TextFormField(
                         style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
-                            labelText: "Mail",
+                            labelText: S.of(context).buttonMail,
                             labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                             enabledBorder:  UnderlineInputBorder(
                               borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
@@ -88,7 +89,7 @@ class _LogInState extends State<LogIn> {
                       TextFormField(
                         style: Theme.of(context).textTheme.bodyText1,
                           decoration: InputDecoration(
-                              labelText: "Password",
+                              labelText: S.of(context).buttonPassword,
                               labelStyle: TextStyle(color: Theme.of(context).primaryColorDark),
                               enabledBorder:  UnderlineInputBorder(
                                 borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
@@ -123,11 +124,11 @@ class _LogInState extends State<LogIn> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Newcomer? not for long ',
+                              Text(S.of(context).textNewcomer,
                                 style: TextStyle(fontSize: 12.0, color: Colors.black ),
                               ),
                               GestureDetector(
-                                child: Text(' Sign up',
+                                child: Text(S.of(context).pageNameRegister,
                                   style: Theme.of(context).textTheme.bodyText2,
                                 ),
                                   onTap: () => model.navigateToSignUp(),
@@ -141,10 +142,10 @@ class _LogInState extends State<LogIn> {
                           MaterialButton(
                               minWidth: double.maxFinite,
                               color: Colors.red,
-                              child: Text('Log in with your google account',
+                              child: Text(S.of(context).buttonGoogleSignIn,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
-                              onPressed: () => model.isBusy? null : model.logInWithGmail()
+                              onPressed: () => model.isBusy? null : model.logInWithGmail(),
                           ),
                           SizedBox(
                             width: 40.0,
@@ -152,10 +153,14 @@ class _LogInState extends State<LogIn> {
                           MaterialButton(
                             minWidth: double.maxFinite,
                             color: Theme.of(context).primaryColorDark,
-                              child: Text('Log in',
+                              child: Text(S.of(context).pageNameSignIn,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
-                              onPressed: () => model.isBusy? null : model.logInWithEmailAndPassword()
+                              onPressed: () => model.isBusy? null : () {
+                                setState(() {
+                                  model.logInWithEmailAndPassword();
+                                });
+                              },
                           ),
                           SizedBox(
                             height: 10.0,

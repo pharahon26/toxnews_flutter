@@ -45,13 +45,13 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             localizationsDelegates: [
-              S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
+              S.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
-            title: 'ToxNews',
+            title: 'Toxnews',
             debugShowCheckedModeBanner: false,
             initialRoute: myRouter.Routes.splashScreen,
             onGenerateRoute: myRouter.Router().onGenerateRoute,

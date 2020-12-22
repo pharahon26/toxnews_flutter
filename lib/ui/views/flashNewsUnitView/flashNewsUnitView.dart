@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:toxnews/generated/l10n.dart';
 import 'package:toxnews/models/FlashNews.dart';
 import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitViewModel.dart';
 
@@ -106,7 +107,7 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                         child: MaterialButton(
                           color: Theme.of(context).primaryColorDark,
                           elevation: 3.0,
-                          child: Text('Lire à la Source',
+                          child: Text(S.of(context).buttonReachBase,
                             style: TextStyle(
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.bold,

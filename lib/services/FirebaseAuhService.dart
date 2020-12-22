@@ -61,7 +61,8 @@ class FirebaseAuthService {
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
       ToxNewsUsers users = ToxNewsUsers.builder(value.user.uid, value.user.displayName, value.user.email, '');
-      await createUserData(users);
+      var user = await createUserData(users);
+      return user!= null;
     });
   }
 
@@ -102,7 +103,8 @@ class FirebaseAuthService {
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
       if (value.user != null) {
-        await getUserData(value.user.uid);
+        var user = await getUserData(value.user.uid);
+        return user != null;
       }
     });
   }

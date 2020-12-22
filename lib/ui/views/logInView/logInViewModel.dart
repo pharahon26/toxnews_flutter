@@ -22,6 +22,7 @@ class LogInViewModel extends BaseViewModel{
 
   void navigateToHome(){
     _navigationService.navigateTo(Routes.home);
+    dispose();
   }
 
   void navigateToSignUp(){
@@ -30,50 +31,45 @@ class LogInViewModel extends BaseViewModel{
 
   void logInWithEmailAndPassword() async {
     setBusy(true);
-    await _authService.signInWithEmailAndPassword(mail: _mail, password: _password).then((value) {
-      setBusy(false);
-      if(value is bool){
-        if(value == true){
-          _snackbarService.showSnackbar(
-              title: 'Sign up',
-              message: 'User log in successfully',
-              mainButtonTitle: 'OK',
-          );
-          navigateToHome();
-        }
-        else{
-          _snackbarService.showSnackbar(
-            title: 'Sign up',
-            message: 'Error user not find',
-            mainButtonTitle: 'OK',
-          );
-        }
+    var sign = await _authService.signInWithEmailAndPassword(mail: _mail, password: _password);
+    setBusy(false);
+    if(sign is bool){
+      if(sign == true){
+        navigateToHome();
       }
-    });
+      else{
+        _snackbarService.showSnackbar(
+          title: 'Sign up',
+          message: 'Error user not find',
+          mainButtonTitle: 'OK',
+        );
+      }
+    }
   }
 
   void logInWithGmail() async {
     setBusy(true);
-    await _authService.signInWithGmail().then((value) {
-      setBusy(false);
-      if(value is bool){
-        if(value == true){
-          _snackbarService.showSnackbar(
-              title: 'Sign up',
-              message: 'User log in successfully',
-              mainButtonTitle: 'OK',
-          );
-          navigateToHome();
-        }
-        else{
-          _snackbarService.showSnackbar(
-            title: 'Sign up',
-            message: 'Error user not find',
-            mainButtonTitle: 'OK',
-          );
-        }
+    var sign = await _authService.signInWithGmail();
+    setBusy(false);
+    if(sign is bool){
+      if(sign == true){
+        // _snackbarService.showSnackbar(
+        //     title: 'Sign up',
+        //     message: 'User log in successfully',
+        //     mainButtonTitle: 'OK',
+        // );
+        print('lOiN vALUE 1 : $sign');
+        navigateToHome();
       }
-    });
+      else{
+        _snackbarService.showSnackbar(
+          title: 'Sign up',
+          message: 'Error user not find',
+          mainButtonTitle: 'OK',
+        );
+      }
+    }
+    print('lOiN vALUE 2 : $sign');
   }
 
 

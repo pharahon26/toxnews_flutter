@@ -9,6 +9,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/views/aboutView/about.dart';
 import '../ui/views/homeView/home.dart';
 import '../ui/views/logInView/logIn.dart';
 import '../ui/views/signUpView/signUp.dart';
@@ -19,11 +20,13 @@ class Routes {
   static const String logIn = '/log-in';
   static const String signUp = '/sign-up';
   static const String home = '/Home';
+  static const String about = '/About';
   static const all = <String>{
     splashScreen,
     logIn,
     signUp,
     home,
+    about,
   };
 }
 
@@ -35,6 +38,7 @@ class Router extends RouterBase {
     RouteDef(Routes.logIn, page: LogIn),
     RouteDef(Routes.signUp, page: SignUp),
     RouteDef(Routes.home, page: Home),
+    RouteDef(Routes.about, page: About),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -75,6 +79,15 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    About: (data) {
+      final args = data.getArgs<AboutArguments>(
+        orElse: () => AboutArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => About(key: args.key),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -104,4 +117,10 @@ class SignUpArguments {
 class HomeArguments {
   final Key key;
   HomeArguments({this.key});
+}
+
+/// About arguments holder class
+class AboutArguments {
+  final Key key;
+  AboutArguments({this.key});
 }
