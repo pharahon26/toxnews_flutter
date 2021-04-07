@@ -8,7 +8,7 @@ import 'package:toxnews/ui/views/signUpView/signUpViewModel.dart';
  * Created by Laty 26 PHARAHON entertainment on 11/11/2020.
  */
 class SignUp extends StatefulWidget {
-  SignUp({Key key}) : super(key: key);
+  SignUp() : super();
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -234,7 +234,7 @@ class _SignUpState extends State<SignUp> {
                               value: model.hasAgree,
                               onChanged: (check){
                                 setState(() {
-                                  model.hasAgree = check;
+                                  model.hasAgree = check!;
                                 });
                               },
                             title: Text( S.of(context).textGiveAgreement,

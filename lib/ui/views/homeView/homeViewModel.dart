@@ -2,22 +2,26 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:toxnews/app/app.locator.dart';
+import 'package:toxnews/app/app.router.dart';
 import 'package:toxnews/models/FlashNews.dart';
+import 'package:toxnews/models/Newspaper.dart';
 import 'package:toxnews/services/FirebaseFirestoreService.dart';
-import 'package:toxnews/tools/locator.dart';
-import 'package:toxnews/tools/router.gr.dart';
+
 
 class HomeViewModel extends BaseViewModel{
   FirebaseFirestoreService _firestoreService = locator<FirebaseFirestoreService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  StreamController _list = StreamController<List<FlashNews>>();
-  List<DropdownMenuItem<String>> companies = List();
-  List<DropdownMenuItem<String>> categories = List();
-  List<String> companiesList = List();
+  StreamController<List<FlashNews>> _flashNewsList = BehaviorSubject();
+  StreamController<List<Newspaper>> _newspaperList = BehaviorSubject();
+  List<DropdownMenuItem<String>> companies = [];
+  List<DropdownMenuItem<String>> categories = [];
+  List<String> companiesList = [];
   Map<String, String> companiesMap = Map();
-  List<String> categoriesList = List();
+  List<String> categoriesList = [];
   String dateString = 'Last News';
   String defaultString = 'Last News';
   String local = 'fr';
@@ -28,9 +32,13 @@ class HomeViewModel extends BaseViewModel{
   String defaultCategory = 'Topic';
 
 
-  Stream get list => _list.stream;
-  List<FlashNews> _news = List();
+  Stream<List<FlashNews>> get flashNewsList => _flashNewsList.stream;
+  Stream<List<Newspaper>> get newspaperList => _newspaperList.stream;
+  List<FlashNews> _news = [];
   List<FlashNews> get news => _news;
+
+  List<Newspaper> _newspapers = [];
+  List<Newspaper> get newspapers => _newspapers;
 
   HomeViewModel(){
     if(local == 'en'){
@@ -48,7 +56,8 @@ class HomeViewModel extends BaseViewModel{
       defaultCompany = 'Source';
       defaultCategory = 'Sujets';
     }
-    _list.sink.add(_news);
+    _flashNewsList.sink.add(_news);
+    // _newspaperList.sink.add(_newspapers);
     // DropdownMenuItem<String> allSources = DropdownMenuItem(child: Text('Magazine',
     //   style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black)
     // ), value: 'all',);
@@ -60,18 +69,33 @@ class HomeViewModel extends BaseViewModel{
     // companies.add(allSources);
     // categories.add(allCategories);
     setNews();
+    setNewspapers();
   }
 
   void setNews() async {
     _news = await _firestoreService.getFlashNews();
     await getDropdownMenuItems();
-    _list.sink.add(_news);
+    _flashNewsList.sink.add(_news);
   }
+
+  void setNewspapers() async {
+    Future.delayed(Duration(seconds: 2), () async{
+    _newspapers = await _firestoreService.getNewspaper();
+    if(_newspapers == null || newspapers.length < 1){
+      print('resetNewspaper');
+      setNewspapers();
+    }else{
+      _newspaperList.sink.add(_newspapers);
+    }
+    });
+
+  }
+
 
   Future<List<FlashNews>> _sortByCompany() async {
     List<FlashNews> result = [];
     if(selectedCompany != defaultCompany ){
-      result = await _firestoreService.getCompanyFlashNews(companiesMap[selectedCompany]);
+      result = await _firestoreService.getCompanyFlashNews(companiesMap[selectedCompany]!);
     }
     else {
       result = await _firestoreService.getFlashNews();
@@ -131,7 +155,7 @@ class HomeViewModel extends BaseViewModel{
     List<FlashNews> temp1 = await _sortByDate(temp);
     /// category sort
     List<FlashNews> temp2 = await _sortByCategory(temp1);
-    _list.sink.add(temp2);
+    _flashNewsList.sink.add(temp2);
     notifyListeners();
   }
 

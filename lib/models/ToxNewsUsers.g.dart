@@ -13,14 +13,18 @@ ToxNewsUsers _$ToxNewsUsersFromJson(Map<String, dynamic> json) {
     ..name = json['name'] as String
     ..number = json['number'] as String
     ..subscriber = json['subscriber'] as bool
-    ..newsPaperOwned =
-        (json['newsPaperOwned'] as List)?.map((e) => e as String)?.toList()
-    ..newsPaperSubscribed =
-        (json['newsPaperSubscribed'] as List)?.map((e) => e as String)?.toList()
-    ..favoriteCompanies =
-        (json['favoriteCompanies'] as List)?.map((e) => e as String)?.toList()
-    ..favoriteCategories =
-        (json['favoriteCategories'] as List)?.map((e) => e as String)?.toList();
+    ..newsPaperOwned = json['newsPaperOwned'] == null? [] : (json['newsPaperOwned'] as List<dynamic>)
+        .map((e) => e as String)
+        .toList()
+    ..newsPaperSubscribed = json['newsPaperSubscribed'] == null? [] : (json['newsPaperSubscribed'] as List<dynamic>)
+        .map((e) => e as String)
+        .toList()
+    ..favoriteCompanies = json['favoriteCompanies'] == null? [] : (json['favoriteCompanies'] as List<dynamic>)
+        .map((e) => e as String)
+        .toList()
+    ..favoriteCategories = json['favoriteCategories'] == null? [] : (json['favoriteCategories'] as List<dynamic>)
+        .map((e) => e as String)
+        .toList();
 }
 
 Map<String, dynamic> _$ToxNewsUsersToJson(ToxNewsUsers instance) =>

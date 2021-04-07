@@ -2,9 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:toxnews/tools/locator.dart';
-import 'package:toxnews/tools/router.gr.dart' as myRouter;
 
+
+import 'app/app.locator.dart';
+import 'app/app.router.dart';
 import 'generated/l10n.dart';
 
 void main() {
@@ -53,9 +54,9 @@ class MyApp extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
             title: 'Toxnews',
             debugShowCheckedModeBanner: false,
-            initialRoute: myRouter.Routes.splashScreen,
-            onGenerateRoute: myRouter.Router().onGenerateRoute,
-            navigatorKey: locator<NavigationService>().navigatorKey,
+            initialRoute: Routes.splashScreen,
+            onGenerateRoute: StackedRouter().onGenerateRoute,
+            navigatorKey: StackedService.navigatorKey,
             theme: ThemeData(
               primaryColor: Color(0xff1DE9B6),
               primaryColorDark: Color(0xff30B19F),

@@ -9,8 +9,8 @@ import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitViewModel.dart';
  * Created by Laty 26 PHARAHON entertainment on 11/11/2020.
  */
 class FlashNewsUnitView extends StatefulWidget {
-  FlashNews news;
-  FlashNewsUnitView({Key key, FlashNews news}) : super(key: key){
+  FlashNews? news;
+  FlashNewsUnitView({required FlashNews news}) : super(){
    this.news = news;
   }
 
@@ -132,7 +132,7 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
             ],
           ),
         ),
-        viewModelBuilder: () => FlashNewsUnitViewModel(news: widget.news)
+        viewModelBuilder: () => FlashNewsUnitViewModel(news: widget.news!)
     );
   }
 }

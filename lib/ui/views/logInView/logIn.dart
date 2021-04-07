@@ -8,7 +8,7 @@ import 'package:toxnews/ui/views/logInView/logInViewModel.dart';
  * Created by Laty 26 PHARAHON entertainment on 11/11/2020.
  */
 class LogIn extends StatefulWidget {
-  LogIn({Key key}) : super(key: key);
+  LogIn() : super();
 
   @override
   _LogInState createState() => _LogInState();

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:toxnews/models/FlashNews.dart';
@@ -8,10 +10,10 @@ import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitView.dart';
  */
 class FlashNewsCardView extends StatelessWidget {
   FlashNews flashNews;
-  DateTime date;
+  late DateTime date;
 
 
-  FlashNewsCardView({this.flashNews}){
+  FlashNewsCardView({required this.flashNews}){
     date = DateTime.fromMillisecondsSinceEpoch(flashNews.creationDate);
   }
 
@@ -27,18 +29,27 @@ class FlashNewsCardView extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => FlashNewsUnitView(news: flashNews,)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => FlashNewsUnitView(news: flashNews)));
         },
         child: Container(
           height: mediaQuery.size.height/3,
           width: double.infinity,
           // padding: EdgeInsets.all(8.0),
-          // decoration: BoxDecoration(
-          //   /// IMAGE
-          //   image: DecorationImage(image: NetworkImage(flashNews.mediaLink),
-          //     fit: BoxFit.fill
-          //   ),
-          // ),
+          decoration: BoxDecoration(
+
+            gradient: LinearGradient(colors: [
+              Color(0x60000000),
+              Color(0x00000000),
+            ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter
+            ),
+            /// IMAGE
+            image: DecorationImage(image: NetworkImage(flashNews.mediaLink),
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.max,
@@ -46,13 +57,13 @@ class FlashNewsCardView extends StatelessWidget {
               /// News Picture
               Expanded(
                 flex: 1,
-                child: Hero(
-                  tag: flashNews.id,
-                  child: Image.network(flashNews.mediaLink,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    alignment: Alignment.topCenter,
-                  ),
+                child: Container(
+                  // tag: flashNews.id,
+                  // child: Image.network(flashNews.mediaLink,
+                  //   fit: BoxFit.cover,
+                  //   width: double.infinity,
+                  //   alignment: Alignment.topCenter,
+                  // ),
                 ),
               ),
 

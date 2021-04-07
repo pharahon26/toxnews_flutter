@@ -1,23 +1,23 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:injectable/injectable.dart';
+import 'package:toxnews/app/app.locator.dart';
 import 'package:toxnews/models/ToxNewsUsers.dart';
 import 'package:toxnews/services/FirebaseFirestoreService.dart';
-import 'package:toxnews/tools/locator.dart';
 
-@lazySingleton
 class FirebaseAuthService {
   FirebaseFirestoreService _firestoreService = locator<FirebaseFirestoreService>();
 
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  User _user ;
+  User? _user ;
 
   FirebaseAuthService(){
     _firebaseAuth.userChanges().listen((event) async {
       _user = event;
-      await getUserData(_user.uid);
+      if(event != null){
+        await getUserData(_user!.uid);
+      }
+
     });
   }
 
@@ -28,17 +28,16 @@ class FirebaseAuthService {
   }
 
   /// SignUp Method
-  Future signUpWithEmailAndPassword({@required String name, @required String mail, @required String password}) async {
+  Future signUpWithEmailAndPassword({required String name, required String mail, required String password}) async {
     /// Sign up with the mail and password provided
     try {
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: mail, password: password);
       /// call the function to create user data in firestore
-      ToxNewsUsers users = ToxNewsUsers.builder(userCredential.user.uid, name, userCredential.user.email, '');
+      ToxNewsUsers users = ToxNewsUsers.builder(userCredential.user!.uid, name, userCredential.user!.email!, '');
       await createUserData(users);
       return userCredential.user != null;
     } catch (e) {
       print('${e.toString()}');
-      return e.message;
     }
 
   }
@@ -46,13 +45,13 @@ class FirebaseAuthService {
   Future signUpWithGmail() async {
     /// Sign up with the Gmail profile
     // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount googleUser = (await GoogleSignIn().signIn())!;
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
     // Create a new credential
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+    final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
@@ -60,19 +59,19 @@ class FirebaseAuthService {
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
-      ToxNewsUsers users = ToxNewsUsers.builder(value.user.uid, value.user.displayName, value.user.email, '');
+      ToxNewsUsers users = ToxNewsUsers.builder(value.user!.uid, value.user!.displayName!, value.user!.email!, '');
       var user = await createUserData(users);
       return user!= null;
     });
   }
 
   /// logIn Method
-  Future signInWithEmailAndPassword({@required String mail, @required String password}) async {
+  Future signInWithEmailAndPassword({required String mail, required String password}) async {
     /// Sign In with the mail and password provided
     try {
       UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: mail, password: password).then((value) async {
         if (value.user != null) {
-          await getUserData(value.user.uid);
+          await getUserData(value.user!.uid);
         }
         return value;
       });
@@ -80,7 +79,7 @@ class FirebaseAuthService {
       return userCredential.user != null;
     } catch (e) {
       print(e);
-      return e.message;
+      // return e.message;
     }
 
   }
@@ -88,22 +87,24 @@ class FirebaseAuthService {
   Future signInWithGmail() async {
     /// Sign In with the Gmail profile
     // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount googleUser = (await GoogleSignIn().signIn())!;
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
     // Create a new credential
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+    final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
+
+
     /// call the function to get user data in firestore
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
       if (value.user != null) {
-        var user = await getUserData(value.user.uid);
+        var user = await getUserData(value.user!.uid);
         return user != null;
       }
     });

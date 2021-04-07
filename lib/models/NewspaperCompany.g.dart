@@ -13,11 +13,11 @@ NewspaperCompany _$NewspaperCompanyFromJson(Map<String, dynamic> json) {
     ..name = json['name'] as String
     ..country = json['country'] as String
     ..city = json['city'] as String
-    ..mail = (json['mail'] as List)?.map((e) => e as String)?.toList()
+    ..mail = (json['mail'] as List<dynamic>).map((e) => e as String).toList()
     ..newspapers =
-        (json['newspapers'] as List)?.map((e) => e as String)?.toList()
+        (json['newspapers'] as List<dynamic>).map((e) => e as String).toList()
     ..phoneNumber =
-        (json['phoneNumber'] as List)?.map((e) => e as num)?.toList();
+        (json['phoneNumber'] as List<dynamic>).map((e) => e as num).toList();
 }
 
 Map<String, dynamic> _$NewspaperCompanyToJson(NewspaperCompany instance) =>

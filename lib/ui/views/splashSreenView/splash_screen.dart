@@ -8,7 +8,7 @@ import 'package:toxnews/ui/views/splashSreenView/splashScreenViewModel.dart';
  * Created by Laty 26 PHARAHON entertainment on 11/11/2020.
  */
 class SplashScreen extends StatefulWidget {
-  SplashScreen({Key key}) : super(key: key);
+  SplashScreen() : super();
 
   @override
   _SplashScreenState createState() => _SplashScreenState();

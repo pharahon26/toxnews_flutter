@@ -9,7 +9,7 @@ import 'aboutViewModel.dart';
  * Created by Laty 26 PHARAHON entertainment on 11/11/2020.
  */
 class About extends StatefulWidget {
-  About({Key key}) : super(key: key);
+  About() : super();
 
   @override
   _AboutState createState() => _AboutState();

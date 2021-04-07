@@ -3,9 +3,10 @@ import 'dart:async';
 
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:toxnews/app/app.locator.dart';
+import 'package:toxnews/app/app.router.dart';
 import 'package:toxnews/services/FirebaseAuhService.dart';
-import 'package:toxnews/tools/locator.dart';
-import 'package:toxnews/tools/router.gr.dart';
+
 
 class SplashScreenViewModel extends BaseViewModel{
   final NavigationService _navigationService = locator<NavigationService>();

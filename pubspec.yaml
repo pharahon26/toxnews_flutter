@@ -18,43 +18,51 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 #  Firebase dependencies
-  firebase_core: "0.5.2"
-  firebase_analytics: "^6.2.0"
-  firebase_auth: "^0.18.3"
-  google_sign_in: "^4.5.1"
-  cloud_firestore: "^0.14.3"
+  firebase_core: ^1.0.2
+  firebase_analytics: ^7.1.1
+  firebase_auth:  ^1.0.1
+  google_sign_in: ^5.0.1
+  cloud_firestore:  ^1.0.3
 #  Stacked and Navigation dependencies
-  stacked: ^1.2.2
-  auto_route: ^0.6.9
-  stacked_services: ^0.5.4
-  get_it: ^5.0.1
-  injectable: "^1.0.5"
+  stacked: ^2.0.2
+  stacked_services: ^0.8.1
+  get_it: ^6.0.0
+  injectable: ^1.2.2
 #  Json dependencies
-  json_annotation: ^3.1.0
-#  URL Dependency
-  url_launcher: ^5.7.10
+  json_annotation: ^4.0.1
+  #  URL Dependency
+  url_launcher: ^6.0.3
 #  Localization dependency
-  intl: ^0.16.1
+  intl: ^0.17.0
+#   rxdart dependency
+  rxdart: ^0.26.0
+#    pdf dependency
+  native_pdf_view: ^4.0.1
+
+  path_provider: ^2.0.1
+  shared_preferences: ^2.0.5
+
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.10.4
-  auto_route_generator: ^0.6.10
-  injectable_generator: ^1.0.6
-  json_serializable: ^3.5.0
-  flutter_launcher_icons: "^0.8.0"
+  build_runner: ^1.12.2
+  stacked_generator:
+  injectable_generator: ^1.2.2
+  json_serializable: ^4.1.0
+
+  flutter_launcher_icons: ^0.9.0
   flutter_localizations:
     sdk: flutter
 
@@ -80,6 +88,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/tox_logo.png
+    - assets/bf.png
+    - assets/ci.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
