@@ -41,6 +41,7 @@ class SignUpViewModel extends BaseViewModel{
     if(_hasAgree){
       setBusy(true);
       var sign = await _authService.signUpWithEmailAndPassword(name: _name, mail: _mail, password: _password);
+      navigateToHome();
       setBusy(false);
       if(sign is bool){
         if(sign == true){
@@ -49,7 +50,7 @@ class SignUpViewModel extends BaseViewModel{
             message: 'User Created successfully',
             mainButtonTitle: 'OK',
           );
-          navigateToHome();
+
         }
         else{
           _snackbarService.showSnackbar(

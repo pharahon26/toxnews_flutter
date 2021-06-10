@@ -33,6 +33,7 @@ class NewspaperCardView extends StatefulWidget {
 
 class _NewspaperCardViewState extends State<NewspaperCardView> {
 
+  bool isDownloading = false;
 
 
   @override
@@ -46,115 +47,129 @@ class _NewspaperCardViewState extends State<NewspaperCardView> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4.0)
             ),
-            child: GestureDetector(
-              onTap: () async{
-                print('ouvrir le journal');
-                print(widget.newspaper.firstPageURL);
-                String path = await model.downloadPdfAndNavigate(widget.newspaper);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => NewspaperUnitView(path: path)));
-              },
-              child: Container(
-                height: (mediaQuery.size.height *2 )/ 3,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    Color(0x70000000),
-                    Color(0x50000000),
-                    Color(0x30000000),
-                    Color(0x10000000),
-                    Color(0x00000000),
-                  ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter
-                  ),
-                  /// IMAGE
-                  image: DecorationImage(image: NetworkImage(widget.newspaper.firstPageURL),
-                    fit: BoxFit.fitWidth,
-                    alignment: Alignment.center,
-                  ),
-                ),
+            child: AspectRatio(
+              aspectRatio: 2/3,
+              child: GestureDetector(
+                onTap: () async{
+                  print('ouvrir le journal');
+                  print(widget.newspaper.firstPageURL);
+                  if(model.isDownloading){
+                    print('non au boublon');
+                  }else{
+                    setState(() {
+                      isDownloading = true;
+                    });
+                    String path = await model.downloadPdfAndNavigate(widget.newspaper);
+                    setState(() {
+                      isDownloading = false;
+                    });
+                    model.navigateToReader(path);
+                  }
+
+                },
                 child: Container(
-                  padding: EdgeInsets.all(8.0),
+                  height: (mediaQuery.size.height *2 )/ 3,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
-                      Colors.black.withOpacity(0.9),
-                      Colors.black.withOpacity(0.2),
-                      Colors.black.withOpacity(0.1),
-                      Colors.black.withOpacity(0.2),
-                      Colors.black.withOpacity(0.9),
+                      Color(0x70000000),
+                      Color(0x50000000),
+                      Color(0x30000000),
+                      Color(0x10000000),
+                      Color(0x00000000),
                     ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter
                     ),
+                    /// IMAGE
+                    image: DecorationImage(image: NetworkImage(widget.newspaper.firstPageURL),
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment.center,
+                    ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                  child: Container(
+                    padding: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                        Colors.black.withOpacity(0.9),
+                        Colors.black.withOpacity(0.2),
+                        Colors.black.withOpacity(0.1),
+                        Colors.black.withOpacity(0.2),
+                        Colors.black.withOpacity(0.9),
+                      ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
 
-                          /// company
-                          Column(
-                            children: [
-                              Text(widget.newspaper.newsPaperCompany,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 32.0,
-                                    color: Colors.white
+                            /// company
+                            Column(
+                              children: [
+                                Text(widget.newspaper.newsPaperCompany,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 32.0,
+                                      color: Colors.white
+                                  ),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
                                 ),
-                                softWrap: true,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
-                              ),
-                              Text(widget.newspaper.category,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.white
+                                Text(widget.newspaper.category,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.white
+                                  ),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
                                 ),
-                                softWrap: true,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
 
-                          /// DATE
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.date_range,
-                                color: Colors.white,
-                                size: 18.0,
-                              ),
-                              Text('  ${widget.date.day}.${widget.date.month}.${widget.date.year}',
-                                style: TextStyle(
-                                  fontSize: 16.0,
+                            /// DATE
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.date_range,
                                   color: Colors.white,
+                                  size: 18.0,
                                 ),
-                              ),
-                            ],
-                          ),
+                                Text('  ${widget.date.day}.${widget.date.month}.${widget.date.year}',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
 
-                        ],
-                      ),
-                      model.isDownloading?
-                      Column(
-                        children: [
-                          CircularProgressIndicator(),
-                        ],
-                      )
-                          :
-                      Container(height: 1.0,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(height: 1.0,),
-                          FlagWidet(widget.newspaper.country)
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                       isDownloading?
+                        Column(
+                          children: [
+                            CircularProgressIndicator(),
+                          ],
+                        )
+                            :
+                        Container(height: 1.0,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(height: 1.0,),
+                            FlagWidet(widget.newspaper.country)
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

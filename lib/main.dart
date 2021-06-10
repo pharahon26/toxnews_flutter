@@ -58,13 +58,13 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: StackedRouter().onGenerateRoute,
             navigatorKey: StackedService.navigatorKey,
             theme: ThemeData(
-              primaryColor: Color(0xff1DE9B6),
-              primaryColorDark: Color(0xff30B19F),
-              primaryColorLight: Color(0xff70F8D6),
-              accentColor: Color(0xffD500F9),
-              hintColor: Color(0xffD82CF5),
-              backgroundColor: Colors.white,
-              cardColor: Colors.teal,
+              primaryColor: Color(0xff065143),
+              primaryColorDark: Color(0xff04392f),
+              primaryColorLight: Color(0xff0a856e),
+              accentColor: Color(0xff901317),
+              hintColor: Color(0xff7c6c77),
+              backgroundColor: Color(0xff001c55),
+              cardColor: Color(0xff15b097),
               fontFamily: "Times New Roman",
 
               textTheme: TextTheme(

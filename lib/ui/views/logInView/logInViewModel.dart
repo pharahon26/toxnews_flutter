@@ -52,24 +52,8 @@ class LogInViewModel extends BaseViewModel{
     setBusy(true);
     var sign = await _authService.signInWithGmail();
     setBusy(false);
-    if(sign is bool){
-      if(sign == true){
-        // _snackbarService.showSnackbar(
-        //     title: 'Sign up',
-        //     message: 'User log in successfully',
-        //     mainButtonTitle: 'OK',
-        // );
-        print('lOiN vALUE 1 : $sign');
-        navigateToHome();
-      }
-      else{
-        _snackbarService.showSnackbar(
-          title: 'Sign up',
-          message: 'Error user not find',
-          mainButtonTitle: 'OK',
-        );
-      }
-    }
+    navigateToHome();
+
     print('lOiN vALUE 2 : $sign');
   }
 

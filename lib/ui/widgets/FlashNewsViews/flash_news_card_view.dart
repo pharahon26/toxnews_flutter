@@ -2,8 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:toxnews/app/app.locator.dart';
+import 'package:toxnews/app/app.router.dart';
 import 'package:toxnews/models/FlashNews.dart';
 import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitView.dart';
+import 'package:toxnews/ui/widgets/fla_widet.dart';
 
 /**
  * Created by Laty 26 PHARAHON entertainment on 16/11/2020.
@@ -11,6 +15,8 @@ import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitView.dart';
 class FlashNewsCardView extends StatelessWidget {
   FlashNews flashNews;
   late DateTime date;
+  final NavigationService _navigationService = locator<NavigationService>();
+
 
 
   FlashNewsCardView({required this.flashNews}){
@@ -24,74 +30,75 @@ class FlashNewsCardView extends StatelessWidget {
       // color: Theme.of(context).cardColor,
       color: Colors.white,
       elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4.0)
-      ),
       child: GestureDetector(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => FlashNewsUnitView(news: flashNews)));
+          _navigationService.navigateTo(Routes.flashNewsUnitView, arguments: FlashNewsUnitViewArguments(news: flashNews));
         },
-        child: Container(
-          height: mediaQuery.size.height/3,
-          width: double.infinity,
-          // padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
+        child: ClipRect(
+          child: Container(
+            height: mediaQuery.size.height/3,
+            width: double.infinity,
+            decoration: BoxDecoration(
 
-            gradient: LinearGradient(colors: [
-              Color(0x60000000),
-              Color(0x00000000),
-            ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter
-            ),
-            /// IMAGE
-            image: DecorationImage(image: NetworkImage(flashNews.mediaLink),
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              /// News Picture
-              Expanded(
-                flex: 1,
-                child: Container(
-                  // tag: flashNews.id,
-                  // child: Image.network(flashNews.mediaLink,
-                  //   fit: BoxFit.cover,
-                  //   width: double.infinity,
-                  //   alignment: Alignment.topCenter,
-                  // ),
-                ),
+              // gradient: LinearGradient(colors: [
+              //   Color(0x60000000),
+              //   Color(0x00000000),
+              // ],
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter
+              // ),
+              /// IMAGE
+              image: DecorationImage(image: NetworkImage(flashNews.mediaLink),
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
               ),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 2,
+                sigmaY: 2,
+                tileMode: TileMode.decal
+              ),
+              child: Container(
+                padding: EdgeInsets.all(12.0),
 
-              Expanded(
-                flex: 1,
+                color: Colors.white.withOpacity(0.2),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    /// NEWS TITLE
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(flashNews.title,
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColorDark
+                    /// NEWS TITLE AND COMPANY
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          width: mediaQuery.size.width * 0.5,
+                          child: Text(flashNews.title,
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColorDark
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
                         ),
-                      ),
+                        Chip(
+                          avatar: FlagWidet(FlagWidet.BURKINA_FASO),
+                          label: Text(flashNews.company.split('.').first.toUpperCase(),
+                            style: TextStyle(color: Theme.of(context).primaryColor , fontSize: 12),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          backgroundColor: Colors.white ,
+                          side: BorderSide(color: Theme.of(context).primaryColor ),
+                        ),
+                      ],
                     ),
                     /// NEWS TEXT
                     Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Text(flashNews.news,
                         textAlign: TextAlign.left,
                         style: TextStyle(
@@ -108,12 +115,10 @@ class FlashNewsCardView extends StatelessWidget {
                       child: Row(
                         children: [
                           /// COMPANY NAME
-                          Icon(Icons.web,
-                            color: Theme.of(context).accentColor,
-                          ),
-                          Text(flashNews.company.split('.').first.toUpperCase(),
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
+                          // Icon(Icons.web,
+                          //   color: Theme.of(context).accentColor,
+                          // ),
+
                           Expanded(child: Container()),
                           /// DATE
                           Icon(
@@ -126,6 +131,7 @@ class FlashNewsCardView extends StatelessWidget {
                               fontSize: 12.0,
                               color: Colors.black,
                             ),
+
                           ),
                         ],
                       ),
@@ -133,8 +139,7 @@ class FlashNewsCardView extends StatelessWidget {
                   ],
                 ),
               ),
-
-            ],
+            ),
           ),
         ),
       )

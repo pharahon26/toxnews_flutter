@@ -5,6 +5,7 @@ import 'package:toxnews/generated/l10n.dart';
 import 'package:toxnews/models/FlashNews.dart';
 import 'package:toxnews/models/Newspaper.dart';
 import 'package:toxnews/ui/views/homeView/homeViewModel.dart';
+import 'package:toxnews/ui/widgets/fla_widet.dart';
 
 /**
  * Created by Laty 26 PHARAHON entertainment on 11/11/2020.
@@ -16,14 +17,22 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+
+  late TabController _tabController;
+  int tabIndex = 0;
+  bool _isFilter = false;
 
   @override
   void initState() {
-    // TODO: implement initState
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        tabIndex = _tabController.index;
+        });
+      });
     super.initState();
     S.load(Locale('fr'));
-
   }
 
   @override
@@ -54,178 +63,191 @@ class _HomeState extends State<Home> {
               // ),
               extendBodyBehindAppBar: true,
               body: Container(
+                padding: EdgeInsets.all(8.0),
                 color: Colors.white,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SafeArea(
-                      child: Container(
-                        height: 1.0,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: double.infinity,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            /// Date Button
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  showDatePicker(context: this.context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(2000),
-                                      lastDate: DateTime(2050))
-                                      .then((value)  {
-                                    if(value != null){
-                                      setState(() {
-                                        model.date = value;
-                                        model.dateString = '${value.day}.${value.month}.${value.year}';
-                                        model.sort();
-                                      });
-                                    }
-                                  });
-                                });
-                              },
+                child: NestedScrollView(
+                  floatHeaderSlivers: true,
+                  headerSliverBuilder: (context, innerBoxIsScrolled) => [SliverAppBar(
+                      backgroundColor: Colors.white,
+                      automaticallyImplyLeading: false,
+                      snap: true,
+                      floating: true,
+                      elevation: 5,
+                      leading: IconButton(icon: Icon(Icons.filter_list, color: _isFilter? Theme.of(context).primaryColorLight : Colors.grey,),
+                        onPressed: () {setState(() {
+                          _isFilter = !_isFilter;
+                        });},
 
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Icon(
-                                    Icons.date_range,
-                                color: Theme.of(context).primaryColorDark,
-                                    size: 24.0,
-                                  ),
-                                  SizedBox(
-                                    width: 8.0,
-                                  ),
-                                  Text(model.dateString,
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColorDark,
-                                        fontWeight: FontWeight.bold,
-                                      fontSize: 16.0
-                                    ),
-                                  ),
-                                ],
+                      ),
+                      title: _isFilter? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          /// companies selection button
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: PopupMenuButton(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.brush, color: Theme.of(context).primaryColorLight,),
+                                    Text(model.selectedCompany, style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColorLight),),
+                                  ],
+                                ),
+                                color: Colors.white,
+                                onSelected: (val){setState(() {
+                                  model.selectedCompany = val.toString();
+                                  model.sort();
+                                });},
+                                itemBuilder: (BuildContext context) {
+                                  return model.companiesList.map((e) => PopupMenuItem(
+                                    child: Text(e),
+                                    value: e,
+                                    textStyle: TextStyle(color: Theme.of(context).primaryColorLight),
+                                  )).toList();
+                                }
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: PopupMenuButton(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0)
+                                ),
+                                child: FlagWidet(FlagWidet.BURKINA_FASO),
+                                color: Colors.white,
+                                onSelected: (val){setState(() {
+                                  model.selectedCompany = val.toString();
+                                  model.sort();
+                                });},
+                                itemBuilder: (BuildContext context) {
+                                  return [FlagWidet.BURKINA_FASO, FlagWidet.COTE_D_IVOIRE].map((e) => PopupMenuItem(
+                                    child: FlagWidet(e),
+                                    value: e,
+                                  )).toList();
+                                }
+                            ),
+                          ),
+
+                          /// category selection button
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: PopupMenuButton(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.account_tree_outlined, color: Theme.of(context).primaryColorLight,),
+                                    Text(model.selectedCategory, style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColorLight),),
+                                  ],
+                                ),
+                                color: Colors.white,
+                                onSelected: (val){setState(() {
+                                  model.selectedCategory = val.toString();
+                                  model.sort();
+                                });},
+                                itemBuilder: (BuildContext context) {
+                                  return model.categoriesList.map((e) => PopupMenuItem(
+                                    child: Text(e),
+                                    value: e,
+                                    textStyle: TextStyle(color: Theme.of(context).primaryColorLight),
+                                  )).toList();
+                                }
+                            ),
+                          ),
+                        ],
+                      ) : TextButton(
+                        onPressed: () {
+                          setState(() {
+                            showDatePicker(context: this.context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2050))
+                                .then((value)  {
+                              if(value != null){
+                                setState(() {
+                                  model.date = value;
+                                  model.dateString = '${value.day}.${value.month}.${value.year}';
+                                  model.sort();
+                                });
+                              }
+                            });
+                          });
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(
+                              Icons.date_range,
+                              color: Theme.of(context).primaryColorDark,
+                              size: 24.0,
+                            ),
+                            SizedBox(
+                              width: 8.0,
+                            ),
+                            Text(model.dateString,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColorDark,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0
                               ),
                             ),
-                            Icon(Icons.search, color: Theme.of(context).primaryColorDark,)
-                            // Container(
-                            //   child: Column(
-                            //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            //     mainAxisSize: MainAxisSize.max,
-                            //     children: [
-                            //       /// companies selection button
-                            //       PopupMenuButton(
-                            //           elevation: 5,
-                            //           shape: RoundedRectangleBorder(
-                            //               borderRadius: BorderRadius.circular(4.0)
-                            //           ),
-                            //           child: Row(
-                            //             children: [
-                            //               Icon(Icons.web, color: Theme.of(context).primaryColorDark,),
-                            //               Text(model.selectedCompany, style: TextStyle(color: Theme.of(context).primaryColorDark),),
-                            //             ],
-                            //           ),
-                            //           color: Colors.white,
-                            //           onSelected: (val){setState(() {
-                            //             model.selectedCompany = val.toString();
-                            //             model.sort();
-                            //           });},
-                            //           itemBuilder: (BuildContext context) {
-                            //             return model.companiesList.map((e) => PopupMenuItem(
-                            //               child: Text(e),
-                            //               value: e,
-                            //               textStyle: TextStyle(color: Theme.of(context).primaryColorDark),
-                            //             )).toList();
-                            //           }
-                            //       ),
-                            //
-                            //       /// category selection button
-                            //       PopupMenuButton(
-                            //           elevation: 5,
-                            //           shape: RoundedRectangleBorder(
-                            //               borderRadius: BorderRadius.circular(4.0)
-                            //           ),
-                            //           child: Row(
-                            //             children: [
-                            //               Icon(Icons.turned_in_not_outlined, color: Theme.of(context).primaryColorDark,),
-                            //               Text(model.selectedCategory, style: TextStyle(color: Theme.of(context).primaryColorDark),),
-                            //             ],
-                            //           ),
-                            //           color: Colors.white,
-                            //           onSelected: (val){setState(() {
-                            //             model.selectedCategory = val.toString();
-                            //             model.sort();
-                            //           });},
-                            //           itemBuilder: (BuildContext context) {
-                            //             return model.categoriesList.map((e) => PopupMenuItem(
-                            //               child: Text(e),
-                            //               value: e,
-                            //               textStyle: TextStyle(color: Theme.of(context).primaryColorDark),
-                            //             )).toList();
-                            //           }
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 9,
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.search, color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.person_outline, color: Theme.of(context).primaryColorLight,),
+                        )
+                      ],
+                      centerTitle: true,
+                      bottom: TabBar(
+                          indicatorColor: Theme.of(context).primaryColorLight,
+                          labelColor: Theme.of(context).primaryColor,
+                          unselectedLabelColor: Theme.of(context).accentColor,
+                          controller: _tabController,
+                          tabs: [
+                            Tab(text: 'News', icon: Icon(Icons.article),),
+                            Tab(text: 'Newspapers', icon: Icon(Icons.auto_stories))
+                          ]
+                      ),
+
+                    )],
+                    /// Tab View
+                    body: Expanded(
                       child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(8.0),
-                        child: PageView(
+                        child: TabBarView(
+                          controller: _tabController,
                           children: [
-                            StreamBuilder<List<Newspaper>>(
-                                stream: model.newspaperList,
-                                builder: (context, snapshot) {
-                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                    return Container(
-                                      width: mediaQuery.size.width/10,
-                                      height: mediaQuery.size.width/10,
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-                                  if(snapshot.connectionState == ConnectionState.none){
-                                    return Container(
-                                      width: mediaQuery.size.width/10,
-                                      height: mediaQuery.size.width/10,
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-                                  if(snapshot.hasData){
-                                    return ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: snapshot.data!.length,
-                                      itemBuilder: (context, index) {
-                                        return snapshot.data![index].getCard();
-                                      },
-                                    );
-                                  }
-                                  return Text('Waiting');
-                                }),
                             StreamBuilder<List<FlashNews>>(
                                 stream: model.flashNewsList,
                                 builder: (context, snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
-                                    return Container(
-                                      width: 30.0,
-                                      height: 30.0,
-                                      child: CircularProgressIndicator(),
+                                    return Center(
+                                      child: Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: LinearProgressIndicator(),
+                                      ),
                                     );
                                   }
                                   if(snapshot.connectionState == ConnectionState.none){
-                                    return Container(
-                                      width: 30.0,
-                                      height: 30.0,
-                                      child: CircularProgressIndicator(),
+                                    return Center(
+                                      child: Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: LinearProgressIndicator(),
+                                      ),
                                     );
                                   }
                                   if(snapshot.hasData){
@@ -239,12 +261,47 @@ class _HomeState extends State<Home> {
                                   }
                                   return Text('Waiting');
                                 }),
+                            StreamBuilder<List<Newspaper>>(
+                                stream: model.newspaperList,
+                                builder: (context, snapshot) {
+                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                    return Center(
+                                      child: Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: LinearProgressIndicator(),
+                                      ),
+                                    );
+                                  }
+                                  if(snapshot.connectionState == ConnectionState.none){
+                                    return Center(
+                                      child: Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: LinearProgressIndicator(),
+                                      ),
+                                    );
+                                  }
+                                  if(snapshot.hasData){
+                                    return ListView.builder(
+                                      shrinkWrap: false,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: snapshot.data!.length,
+                                      itemBuilder: (context, index) {
+                                        return snapshot.data![index].getCard();
+                                      },
+                                    );
+                                  }
+                                  return Text('Waiting');
+                                }),
                           ],
                         ),
                       ),
                     ),
-                  ],
                 ),
+              ),
+              floatingActionButton: FloatingActionButton(onPressed: () {
+                tabIndex == 0 ? _tabController.index = 1 : _tabController.index = 0;
+              },
+                  child: tabIndex == 0 ?  Icon(Icons.article):  Icon(Icons.auto_stories),
               ),
             ),
         viewModelBuilder: () => HomeViewModel());
