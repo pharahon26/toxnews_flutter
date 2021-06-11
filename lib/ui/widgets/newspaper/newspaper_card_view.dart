@@ -3,10 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:toxnews/app/app.locator.dart';
 import 'package:toxnews/models/Newspaper.dart';
-import 'package:toxnews/services/NewspaperRepository.dart';
-import 'package:toxnews/ui/views/newspaperUnitView/newspaperUnitView.dart';
 import 'package:toxnews/ui/widgets/fla_widet.dart';
 import 'package:toxnews/ui/widgets/newspaper/newspaperCardViewModel.dart';
 
@@ -48,7 +45,7 @@ class _NewspaperCardViewState extends State<NewspaperCardView> {
                 borderRadius: BorderRadius.circular(4.0)
             ),
             child: AspectRatio(
-              aspectRatio: 2/3,
+              aspectRatio:1/2,
               child: GestureDetector(
                 onTap: () async{
                   print('ouvrir le journal');

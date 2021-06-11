@@ -8,7 +8,6 @@
 
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:toxnews/services/NewspaperRepository.dart';
 
 import '../services/FirebaseAuhService.dart';
 import '../services/FirebaseFirestoreService.dart';
@@ -18,7 +17,6 @@ final locator = StackedLocator.instance;
 void setupLocator() {
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => SnackbarService());
-  locator.registerLazySingleton(() => NewspaperRepository());
   locator.registerLazySingleton(() => FirebaseAuthService());
   locator.registerLazySingleton(() => FirebaseFirestoreService());
 }

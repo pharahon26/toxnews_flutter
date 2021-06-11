@@ -3,10 +3,13 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:toxnews/services/FirebaseAuhService.dart';
 import 'package:toxnews/services/FirebaseFirestoreService.dart';
 import 'package:toxnews/ui/views/aboutView/about.dart';
+import 'package:toxnews/ui/views/companyUnitView/companyUnitView.dart';
 import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitView.dart';
 import 'package:toxnews/ui/views/homeView/home.dart';
 import 'package:toxnews/ui/views/logInView/logIn.dart';
 import 'package:toxnews/ui/views/newspaperUnitView/newspaperUnitView.dart';
+import 'package:toxnews/ui/views/newspaperViewer/newspaperViewer.dart';
+import 'package:toxnews/ui/views/profileView/profile.dart';
 import 'package:toxnews/ui/views/signUpView/signUp.dart';
 import 'package:toxnews/ui/views/splashSreenView/splash_screen.dart';
 
@@ -18,7 +21,10 @@ import 'package:toxnews/ui/views/splashSreenView/splash_screen.dart';
     MaterialRoute(page: Home),
     MaterialRoute(page: NewspaperUnitView),
     MaterialRoute(page: FlashNewsUnitView),
-    MaterialRoute(page: About)
+    MaterialRoute(page: NewspaperViewer),
+    MaterialRoute(page: CompanyUnitView),
+    MaterialRoute(page: About),
+    MaterialRoute(page: ProfileView)
   ],
     dependencies: [
         LazySingleton(classType: NavigationService),

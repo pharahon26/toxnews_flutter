@@ -3,10 +3,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:toxnews/app/app.locator.dart';
 import 'package:toxnews/app/app.router.dart';
-import 'package:toxnews/models/FlashNews.dart';
 import 'package:toxnews/models/Newspaper.dart';
 import 'package:toxnews/services/NewspaperRepository.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class NewspaperCardViewModel extends BaseViewModel{
   bool isDownloading = false;
@@ -22,7 +20,13 @@ class NewspaperCardViewModel extends BaseViewModel{
   }
 
   void navigateToReader(String path){
-    _navigationService.navigateTo(Routes.newspaperUnitView, arguments: NewspaperUnitViewArguments(path: path));
+    _navigationService.navigateTo(Routes.newspaperViewer, arguments: NewspaperViewerArguments(path: path));
     dispose();
   }
+
+  void navigateToDetails(Newspaper newspaper){
+    _navigationService.navigateTo(Routes.newspaperUnitView, arguments: NewspaperUnitViewArguments(newspaper: newspaper));
+    dispose();
+  }
+
 }

@@ -13,16 +13,11 @@ ToxNewsUsers _$ToxNewsUsersFromJson(Map<String, dynamic> json) {
     ..name = json['name'] as String
     ..number = json['number'] as String
     ..subscriber = json['subscriber'] as bool
-    ..newsPaperOwned = json['newsPaperOwned'] == null? [] : (json['newsPaperOwned'] as List<dynamic>)
-        .map((e) => e as String)
-        .toList()
-    ..newsPaperSubscribed = json['newsPaperSubscribed'] == null? [] : (json['newsPaperSubscribed'] as List<dynamic>)
-        .map((e) => e as String)
-        .toList()
-    ..favoriteCompanies = json['favoriteCompanies'] == null? [] : (json['favoriteCompanies'] as List<dynamic>)
-        .map((e) => e as String)
-        .toList()
-    ..favoriteCategories = json['favoriteCategories'] == null? [] : (json['favoriteCategories'] as List<dynamic>)
+    ..newspapers = Map<String, int>.from(json['newspapers'] as Map)
+    ..flashNews = Map<String, int>.from(json['flashNews'] as Map)
+    ..companies = Map<String, int>.from(json['companies'] as Map)
+    ..comments = Map<String, int>.from(json['comments'] as Map)
+    ..favoriteCategories = (json['favoriteCategories'] as List<dynamic>)
         .map((e) => e as String)
         .toList();
 }
@@ -34,8 +29,9 @@ Map<String, dynamic> _$ToxNewsUsersToJson(ToxNewsUsers instance) =>
       'name': instance.name,
       'number': instance.number,
       'subscriber': instance.subscriber,
-      'newsPaperOwned': instance.newsPaperOwned,
-      'newsPaperSubscribed': instance.newsPaperSubscribed,
-      'favoriteCompanies': instance.favoriteCompanies,
+      'newspapers': instance.newspapers,
+      'flashNews': instance.flashNews,
+      'companies': instance.companies,
+      'comments': instance.comments,
       'favoriteCategories': instance.favoriteCategories,
     };

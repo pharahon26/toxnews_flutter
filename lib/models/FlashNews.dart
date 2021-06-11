@@ -6,85 +6,45 @@ part 'FlashNews.g.dart';
 
 @JsonSerializable()
 class FlashNews {
-  // id
-  String _id = '';
-  String get id => _id;
-  set id(String value) {
-    _id = value;
-  }
+  /// id
+  String id = '';
+  /// title
+  String title = '';
+  /// news
+  String news = '';
+  /// link
+  String link = '';
+  /// media link
+  String mediaLink = '';
+  /// the company id
+  String company = '';
+  /// the company logo
+  String companyLogoURL = '';
+  /// category
+  String category = '';
+  /// date of publication
+  int creationDate = 0;
+  /// LIKES
+  int likes = 0;
+  /// UNLIKES
+  int unlikes = 0;
+  /// TRENDS
+  int trends = 0;
+  /// WATCHER
+  int watcher = 0;
+  /// COMMENTS
+  List<String> comments = [];
+  /// LEVEL
+  int level = 0;
 
-  // title
-  String _title = '';
-  String get title => _title;
-  set title(String value) {
-    /// the Text containing the news title
-    _title = value;
-  }
-
-  // news
-  String _news = '';
-  String get news => _news;
-  set news(String value) {
-    /// the Text containing the actual news
-    _news = value;
-  }
-
-  // link
-  String _link = '';
-  String get link => _link;
-  set link(String value) {
-    /// the link to the article in the company web site
-    _link = value;
-  }
-
-  // media link
-  String _mediaLink = '';
-  String get mediaLink => _mediaLink;
-  set mediaLink(String value) {
-    /// the link to the media that illustrate the news
-    _mediaLink = value;
-  }
-
-  // the company id
-  String _company = '';
-  String get company => _company;
-  set company(String value) {
-    /// company id
-    _company = value;
-  }
-
-  // the company logo
-  String _companyLogoURL = '';
-  String get companyLogoURL => _companyLogoURL;
-  set companyLogoURL(String value) {
-    /// company id
-    _companyLogoURL = value;
-  }
-
-
-  // category
-  String _category = '';
-  String get category => _category;
-  set category(String value) {
-    /// company id
-    _category = value;
-  }
-
-  // date of publication
-  int _creationDate = 0;
-  int get creationDate => _creationDate;
-  set creationDate(int value) {
-    _creationDate = value;
-  }
-
-  static final String REF_FIREBASE_FIRESTORE = 'FlashNews';
+  static const String REF_FIREBASE_FIRESTORE = 'FlashNews';
 
 
   FlashNews();
 
 
-  FlashNews.build(this._id, this._title, this._news, this._link,
-      this._mediaLink, this._company, this._creationDate);
+  FlashNews.build(this.id, this.title, this.news, this.link,
+      this.mediaLink, this.company, this.creationDate);
 
   /// METHODS FOR FIRESTORE
   Map<String, dynamic> toJson() => _$FlashNewsToJson(this);

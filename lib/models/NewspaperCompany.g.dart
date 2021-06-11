@@ -16,8 +16,16 @@ NewspaperCompany _$NewspaperCompanyFromJson(Map<String, dynamic> json) {
     ..mail = (json['mail'] as List<dynamic>).map((e) => e as String).toList()
     ..newspapers =
         (json['newspapers'] as List<dynamic>).map((e) => e as String).toList()
+    ..flashNews =
+        (json['flashNews'] as List<dynamic>).map((e) => e as String).toList()
     ..phoneNumber =
-        (json['phoneNumber'] as List<dynamic>).map((e) => e as num).toList();
+        (json['phoneNumber'] as List<dynamic>).map((e) => e as num).toList()
+    ..comments =
+        (json['comments'] as List<dynamic>).map((e) => e as String).toList()
+    ..followers = json['followers'] as int
+    ..trends = json['trends'] as int
+    ..likes = json['likes'] as int
+    ..level = json['level'] as int;
 }
 
 Map<String, dynamic> _$NewspaperCompanyToJson(NewspaperCompany instance) =>
@@ -29,5 +37,11 @@ Map<String, dynamic> _$NewspaperCompanyToJson(NewspaperCompany instance) =>
       'city': instance.city,
       'mail': instance.mail,
       'newspapers': instance.newspapers,
+      'flashNews': instance.flashNews,
       'phoneNumber': instance.phoneNumber,
+      'comments': instance.comments,
+      'followers': instance.followers,
+      'trends': instance.trends,
+      'likes': instance.likes,
+      'level': instance.level,
     };

@@ -143,8 +143,8 @@ class HomeViewModel extends BaseViewModel{
     return result;
   }
 
-  navigateToAbout(){
-    _navigationService.navigateTo(Routes.about);
+  navigateToProfile(){
+    _navigationService.navigateTo(Routes.profileView);
   }
 
 

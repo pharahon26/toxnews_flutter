@@ -10,11 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../models/FlashNews.dart';
+import '../models/Newspaper.dart';
+import '../models/NewspaperCompany.dart';
 import '../ui/views/aboutView/about.dart';
+import '../ui/views/companyUnitView/companyUnitView.dart';
 import '../ui/views/flashNewsUnitView/flashNewsUnitView.dart';
 import '../ui/views/homeView/home.dart';
 import '../ui/views/logInView/logIn.dart';
 import '../ui/views/newspaperUnitView/newspaperUnitView.dart';
+import '../ui/views/newspaperViewer/newspaperViewer.dart';
+import '../ui/views/profileView/profile.dart';
 import '../ui/views/signUpView/signUp.dart';
 import '../ui/views/splashSreenView/splash_screen.dart';
 
@@ -25,7 +30,10 @@ class Routes {
   static const String home = '/Home';
   static const String newspaperUnitView = '/newspaper-unit-view';
   static const String flashNewsUnitView = '/flash-news-unit-view';
+  static const String newspaperViewer = '/newspaper-viewer';
+  static const String companyUnitView = '/company-unit-view';
   static const String about = '/About';
+  static const String profileView = '/profile-view';
   static const all = <String>{
     splashScreen,
     logIn,
@@ -33,7 +41,10 @@ class Routes {
     home,
     newspaperUnitView,
     flashNewsUnitView,
+    newspaperViewer,
+    companyUnitView,
     about,
+    profileView,
   };
 }
 
@@ -47,7 +58,10 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.home, page: Home),
     RouteDef(Routes.newspaperUnitView, page: NewspaperUnitView),
     RouteDef(Routes.flashNewsUnitView, page: FlashNewsUnitView),
+    RouteDef(Routes.newspaperViewer, page: NewspaperViewer),
+    RouteDef(Routes.companyUnitView, page: CompanyUnitView),
     RouteDef(Routes.about, page: About),
+    RouteDef(Routes.profileView, page: ProfileView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -79,7 +93,7 @@ class StackedRouter extends RouterBase {
     NewspaperUnitView: (data) {
       var args = data.getArgs<NewspaperUnitViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => NewspaperUnitView(path: args.path),
+        builder: (context) => NewspaperUnitView(newspaper: args.newspaper),
         settings: data,
       );
     },
@@ -90,9 +104,29 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    NewspaperViewer: (data) {
+      var args = data.getArgs<NewspaperViewerArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => NewspaperViewer(path: args.path),
+        settings: data,
+      );
+    },
+    CompanyUnitView: (data) {
+      var args = data.getArgs<CompanyUnitViewArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => CompanyUnitView(company: args.company),
+        settings: data,
+      );
+    },
     About: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => About(),
+        settings: data,
+      );
+    },
+    ProfileView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => ProfileView(),
         settings: data,
       );
     },
@@ -105,12 +139,24 @@ class StackedRouter extends RouterBase {
 
 /// NewspaperUnitView arguments holder class
 class NewspaperUnitViewArguments {
-  final String path;
-  NewspaperUnitViewArguments({required this.path});
+  final Newspaper newspaper;
+  NewspaperUnitViewArguments({required this.newspaper});
 }
 
 /// FlashNewsUnitView arguments holder class
 class FlashNewsUnitViewArguments {
   final FlashNews news;
   FlashNewsUnitViewArguments({required this.news});
+}
+
+/// NewspaperViewer arguments holder class
+class NewspaperViewerArguments {
+  final String path;
+  NewspaperViewerArguments({required this.path});
+}
+
+/// CompanyUnitView arguments holder class
+class CompanyUnitViewArguments {
+  final NewspaperCompany company;
+  CompanyUnitViewArguments({required this.company});
 }
