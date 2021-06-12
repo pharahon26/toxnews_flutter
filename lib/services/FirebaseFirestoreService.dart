@@ -11,6 +11,7 @@ class FirebaseFirestoreService{
   Query? _flash_news_collection;
   Query? _newspaper_collection;
   ToxNewsUsers _toxNewsUser = ToxNewsUsers();
+  ToxNewsUsers get user => _toxNewsUser;
 
   FirebaseFirestoreService(){
     _user_collection = _firestore.collection(ToxNewsUsers.REF_FIREBASE_FIRESTORE);

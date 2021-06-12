@@ -12,6 +12,7 @@ ToxNewsUsers _$ToxNewsUsersFromJson(Map<String, dynamic> json) {
     ..mail = json['mail'] as String
     ..name = json['name'] as String
     ..number = json['number'] as String
+    ..image = json['image'] as String
     ..subscriber = json['subscriber'] as bool
     ..newspapers = Map<String, int>.from(json['newspapers'] as Map)
     ..flashNews = Map<String, int>.from(json['flashNews'] as Map)
@@ -28,6 +29,7 @@ Map<String, dynamic> _$ToxNewsUsersToJson(ToxNewsUsers instance) =>
       'mail': instance.mail,
       'name': instance.name,
       'number': instance.number,
+      'image': instance.image,
       'subscriber': instance.subscriber,
       'newspapers': instance.newspapers,
       'flashNews': instance.flashNews,

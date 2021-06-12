@@ -15,6 +15,8 @@ class ToxNewsUsers{
   String name = ' ';
   // NUMBER
   String number = ' ';
+  // USER IMAGE
+  String image = ' ';
   // IS SUBSCRIBER
   bool subscriber = false;
   /// NEWSPAPER **STATE** {onw, download, like, unlike, trend, comment}

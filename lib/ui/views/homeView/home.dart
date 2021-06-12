@@ -21,6 +21,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   late TabController _tabController;
   int tabIndex = 0;
+  int _floatIcon  = 0;
   bool _isFilter = false;
   String _country = FlagWidet.BURKINA_FASO;
 
@@ -303,11 +304,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 ),
               ),
               floatingActionButton: FloatingActionButton(onPressed: () {
-                tabIndex == 0 ? _tabController.index = 1 : _tabController.index = 0;
+                setState(() {
+                  switchIcon();
+                });
               },
-                  child: tabIndex == 0 ?  Icon(Icons.article):  Icon(Icons.auto_stories),
+                  child: Icon(_floatIcon == 0? Icons.language: _floatIcon == 1? Icons.favorite : Icons.local_fire_department_sharp),
               ),
             ),
         viewModelBuilder: () => HomeViewModel());
+  }
+
+  void switchIcon(){
+    if(_floatIcon == 2){
+      _floatIcon = 0;
+    } else{
+      _floatIcon++;
+    }
   }
 }

@@ -19,6 +19,9 @@ import '../ui/views/homeView/home.dart';
 import '../ui/views/logInView/logIn.dart';
 import '../ui/views/newspaperUnitView/newspaperUnitView.dart';
 import '../ui/views/newspaperViewer/newspaperViewer.dart';
+import '../ui/views/personalCompanyView/personalCompanyView.dart';
+import '../ui/views/personalFlashNewsView/personalFlashNewsView.dart';
+import '../ui/views/personalNewspaperView/personalNewspaperView.dart';
 import '../ui/views/profileView/profile.dart';
 import '../ui/views/signUpView/signUp.dart';
 import '../ui/views/splashSreenView/splash_screen.dart';
@@ -32,6 +35,9 @@ class Routes {
   static const String flashNewsUnitView = '/flash-news-unit-view';
   static const String newspaperViewer = '/newspaper-viewer';
   static const String companyUnitView = '/company-unit-view';
+  static const String personalNewspaperView = '/personal-newspaper-view';
+  static const String personalFlashNewsView = '/personal-flash-news-view';
+  static const String personalCompanyView = '/personal-company-view';
   static const String about = '/About';
   static const String profileView = '/profile-view';
   static const all = <String>{
@@ -43,6 +49,9 @@ class Routes {
     flashNewsUnitView,
     newspaperViewer,
     companyUnitView,
+    personalNewspaperView,
+    personalFlashNewsView,
+    personalCompanyView,
     about,
     profileView,
   };
@@ -60,6 +69,9 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.flashNewsUnitView, page: FlashNewsUnitView),
     RouteDef(Routes.newspaperViewer, page: NewspaperViewer),
     RouteDef(Routes.companyUnitView, page: CompanyUnitView),
+    RouteDef(Routes.personalNewspaperView, page: PersonalNewspaperView),
+    RouteDef(Routes.personalFlashNewsView, page: PersonalFlashNewsView),
+    RouteDef(Routes.personalCompanyView, page: PersonalCompanyView),
     RouteDef(Routes.about, page: About),
     RouteDef(Routes.profileView, page: ProfileView),
   ];
@@ -115,6 +127,24 @@ class StackedRouter extends RouterBase {
       var args = data.getArgs<CompanyUnitViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
         builder: (context) => CompanyUnitView(company: args.company),
+        settings: data,
+      );
+    },
+    PersonalNewspaperView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => PersonalNewspaperView(),
+        settings: data,
+      );
+    },
+    PersonalFlashNewsView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => PersonalFlashNewsView(),
+        settings: data,
+      );
+    },
+    PersonalCompanyView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => PersonalCompanyView(),
         settings: data,
       );
     },
