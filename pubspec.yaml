@@ -44,9 +44,10 @@ dependencies:
   rxdart: ^0.26.0
 #    pdf dependency
   native_pdf_view: ^4.0.1
-
   path_provider: ^2.0.1
   shared_preferences: ^2.0.5
+#  icons
+  line_icons: ^2.0.1
 
 
 

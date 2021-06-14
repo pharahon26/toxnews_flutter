@@ -2,6 +2,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:toxnews/services/FirebaseAuhService.dart';
 import 'package:toxnews/services/FirebaseFirestoreService.dart';
+import 'package:toxnews/services/NewspaperRepository.dart';
 import 'package:toxnews/ui/views/aboutView/about.dart';
 import 'package:toxnews/ui/views/companyUnitView/companyUnitView.dart';
 import 'package:toxnews/ui/views/flashNewsUnitView/flashNewsUnitView.dart';
@@ -37,6 +38,7 @@ import 'package:toxnews/ui/views/splashSreenView/splash_screen.dart';
         LazySingleton(classType: SnackbarService),
         LazySingleton(classType: FirebaseAuthService),
         LazySingleton(classType: FirebaseFirestoreService),
+        LazySingleton(classType: NewspaperRepository),
     ],
 )
 class AppSetup {

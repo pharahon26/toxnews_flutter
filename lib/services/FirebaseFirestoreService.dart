@@ -48,6 +48,17 @@ class FirebaseFirestoreService{
     }
   }
 
+  /// COMPANY
+  /// get company
+  NewspaperCompany getCompany(String companyId) {
+    /// get the Newspaper from a specific company
+    NewspaperCompany c = NewspaperCompany();
+    DocumentReference companyNewspaperRef = _firestore.collection(NewspaperCompany.REF_FIREBASE_FIRESTORE).doc(companyId);
+    companyNewspaperRef.get().then((value) => c =NewspaperCompany.fromJson(value.data()!));
+    return c;
+  }
+
+
   /// FLASHNEWS
   /// FlashNews interactions
   Future<List<FlashNews>> getFlashNews() async {
@@ -167,6 +178,7 @@ class FirebaseFirestoreService{
     CollectionReference companyNewspaperRef = _firestore.collection(NewspaperCompany.REF_FIREBASE_FIRESTORE).doc(company).collection(Newspaper.REF_FIREBASE_FIRESTORE);
     return _newspaperListFromSnapshot(await companyNewspaperRef.get());
   }
+
 
   Future<Stream<List<Newspaper>>> listenToCompanyNewspaper(String company) async {
     /// get the stream Newspaper from a specific company

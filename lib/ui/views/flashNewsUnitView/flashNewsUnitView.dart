@@ -32,8 +32,14 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                 expandedHeight: 200,
                 floating: false,
                 flexibleSpace: FlexibleSpaceBar(
-                  title: Text(model.news.company.split('.').first, style: Theme.of(context).textTheme.headline4,),
+                  titlePadding: EdgeInsets.all(12),
                   centerTitle: true,
+                  title: Container(
+                    width: double.infinity,
+                      alignment: Alignment.bottomRight,
+                      child: GestureDetector(
+                        onTap: () => model.navigateToCompany(),
+                          child: Text(model.news.company.split('.').first, style: Theme.of(context).textTheme.headline4, textDirection: TextDirection.ltr,))),
                   background: Stack(
                     fit: StackFit.expand,
                     children: [
@@ -46,8 +52,11 @@ class _FlashNewsUnitViewState extends State<FlashNewsUnitView> {
                           begin: Alignment(0.0, 0.5),
                           end: Alignment(0.0, 0.0),
                           colors: [
-                            Color(0x60000000),
-                            Color(0x00000000),
+                            Color(0xA0000000),
+                            Color(0x90000000),
+                            Color(0x50000000),
+                            Color(0x30000000),
+                            Color(0x10000000),
                           ],
                         ),
                       ),

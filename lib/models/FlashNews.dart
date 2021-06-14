@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:toxnews/app/Relation_manager.dart';
+import 'package:toxnews/models/app_enums.dart';
 import 'package:toxnews/ui/widgets/FlashNewsViews/flash_news_card_view.dart';
 
 part 'FlashNews.g.dart';
@@ -36,11 +38,53 @@ class FlashNews {
   List<String> comments = [];
   /// LEVEL
   int level = 0;
+  /// Roof
+  final int roof = 2^FlashNewsState.values.length;
 
   static const String REF_FIREBASE_FIRESTORE = 'FlashNews';
 
 
   FlashNews();
+
+  /// FLASHNEWS **STATE** {like, unlike, trend, comment, watch}
+
+  bool isWatching() => RelationManager.decodeLevel(level, roof~/2, FlashNewsState.watch.index);
+  void watch() {
+    if(isWatching()){
+      level-=roof~/(2*2^FlashNewsState.watch.index);
+    } else{
+      level+=roof~/(2*2^FlashNewsState.watch.index);
+    }
+  }
+  bool isCommented() => RelationManager.decodeLevel(level, roof~/2, FlashNewsState.comment.index);
+  void comment() {
+    if(isCommented()){
+      level-=roof~/(2*2^FlashNewsState.comment.index);
+    } else{
+      level+=roof~/(2*2^FlashNewsState.comment.index);
+    }
+  }
+
+  bool isUnliked() => RelationManager.decodeLevel(level, roof~/2, FlashNewsState.unlike.index);
+  void unlike() {
+    if(!isUnliked()){
+      level+=roof~/(2*2^FlashNewsState.unlike.index);
+    }
+  }
+  bool isLiked() => RelationManager.decodeLevel(level, roof~/2, FlashNewsState.like.index);
+  void like() {
+    if(isLiked()){
+      level-=roof~/(2*2^FlashNewsState.like.index);
+    } else{
+      level+=roof~/(2*2^FlashNewsState.like.index);
+    }
+  }
+  bool hadTrend() => RelationManager.decodeLevel(level, roof~/2, FlashNewsState.trend.index);
+  void trend() {
+    if(!hadTrend()){
+      level+=roof~/(2*2^FlashNewsState.trend.index);
+    }
+  }
 
 
   FlashNews.build(this.id, this.title, this.news, this.link,

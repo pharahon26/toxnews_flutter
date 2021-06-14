@@ -126,7 +126,7 @@ class StackedRouter extends RouterBase {
     CompanyUnitView: (data) {
       var args = data.getArgs<CompanyUnitViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => CompanyUnitView(company: args.company),
+        builder: (context) => CompanyUnitView(companyId: args.companyId),
         settings: data,
       );
     },
@@ -187,6 +187,6 @@ class NewspaperViewerArguments {
 
 /// CompanyUnitView arguments holder class
 class CompanyUnitViewArguments {
-  final NewspaperCompany company;
-  CompanyUnitViewArguments({required this.company});
+  final String companyId;
+  CompanyUnitViewArguments({required this.companyId});
 }

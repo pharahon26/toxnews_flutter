@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
           appBar: AppBar(
-            title: Text(S.of(context).pageNameWelcome,
+            title: Text('welcome',
               style: Theme.of(context).textTheme.headline6,
             ),
             centerTitle: true,
