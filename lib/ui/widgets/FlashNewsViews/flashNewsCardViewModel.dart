@@ -17,13 +17,11 @@ class FlashNewsCardViewModel extends BaseViewModel{
 
   void navigateToArticle(){
     _navigationService.navigateTo(Routes.flashNewsUnitView, arguments: FlashNewsUnitViewArguments(news: flashNews));
-    dispose();
   }
 
   void navigateToCompany(String companyId){
     print('Navigate to Company : $companyId}');
     _navigationService.navigateTo(Routes.companyUnitView, arguments: CompanyUnitViewArguments(companyId: companyId));
-    dispose();
   }
 
   void like(){

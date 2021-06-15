@@ -67,240 +67,270 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               body: Container(
                 padding: EdgeInsets.all(8.0),
                 color: Colors.white,
-                child: NestedScrollView(
-                  floatHeaderSlivers: true,
-                  headerSliverBuilder: (context, innerBoxIsScrolled) => [SliverAppBar(
-                      backgroundColor: Colors.white,
-                      automaticallyImplyLeading: false,
-                      snap: true,
-                      floating: true,
-                      elevation: 5,
-                      leading: IconButton(icon: Icon(_isFilter? Icons.filter_list : Icons.update, color: Theme.of(context).primaryColorLight,),
-                        onPressed: () {setState(() {
-                          _isFilter = !_isFilter;
-                        });},
+                child: StreamBuilder<List<FlashNews>>(
+                  stream: model.flashNewsList,
+                  builder: (context, snapshot) {
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return Center(
+                        child: Container(
+                          padding: EdgeInsets.all(8.0),
+                          child: LinearProgressIndicator(),
+                        ),
+                      );
+                    }
+                    if(snapshot.connectionState == ConnectionState.none){
+                      return Center(
+                        child: Container(
+                          padding: EdgeInsets.all(8.0),
+                          child: LinearProgressIndicator(),
+                        ),
+                      );
+                    }
+                    if(snapshot.connectionState == ConnectionState.active){
+                      return NestedScrollView(
+                        floatHeaderSlivers: true,
+                        headerSliverBuilder: (context, innerBoxIsScrolled) => [SliverAppBar(
+                          backgroundColor: Colors.white,
+                          automaticallyImplyLeading: false,
+                          pinned: true,
+                          floating: true,
+                          elevation: 5,
+                          leading: IconButton(icon: Icon(_isFilter? Icons.filter_list : Icons.update, color: Theme.of(context).primaryColorLight,),
+                            onPressed: () {setState(() {
+                              _isFilter = !_isFilter;
+                            });},
 
-                      ),
-                      title: _isFilter?
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          /// companies selection button
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: PopupMenuButton(
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4.0)
-                                ),
-                                child: Row(
-                                  children: [
-                                    // Icon(Icons.brush, color: Theme.of(context).primaryColorLight,),
-                                    Text(model.selectedCompany, style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColorLight),),
-                                  ],
-                                ),
-                                color: Colors.white,
-                                onSelected: (val){setState(() {
-                                  model.selectedCompany = val.toString();
-                                  model.sort();
-                                });},
-                                itemBuilder: (BuildContext context) {
-                                  return model.companiesList.map((e) => PopupMenuItem(
-                                    child: Text(e),
-                                    value: e,
-                                    textStyle: TextStyle(color: Theme.of(context).primaryColorLight),
-                                  )).toList();
-                                }
-                            ),
                           ),
-                          /// country
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: PopupMenuButton(
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4.0)
+                          title: _isFilter?
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              /// companies selection button
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: PopupMenuButton(
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4.0)
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        // Icon(Icons.brush, color: Theme.of(context).primaryColorLight,),
+                                        Text(model.selectedCompany, style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColorLight),),
+                                      ],
+                                    ),
+                                    color: Colors.white,
+                                    onSelected: (val){setState(() {
+                                      model.selectedCompany = val.toString();
+                                      model.sort();
+                                    });},
+                                    itemBuilder: (BuildContext context) {
+                                      return model.companiesList.map((e) => PopupMenuItem(
+                                        child: Text(e),
+                                        value: e,
+                                        textStyle: TextStyle(color: Theme.of(context).primaryColorLight),
+                                      )).toList();
+                                    }
                                 ),
-                                child: FlagWidet(_country),
-                                color: Colors.white,
-                                onSelected: (val){setState(() {
-                                  _country = val.toString();
-                                });},
-                                itemBuilder: (BuildContext context) {
-                                  return [FlagWidet.BURKINA_FASO, FlagWidet.COTE_D_IVOIRE].map((e) => PopupMenuItem(
-                                    child: FlagWidet(e),
-                                    value: e,
-                                  )).toList();
-                                }
-                            ),
-                          ),
-
-                          /// category selection button
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: PopupMenuButton(
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4.0)
-                                ),
-                                child: Row(
-                                  children: [
-                                    // Icon(Icons.account_tree_outlined, color: Theme.of(context).primaryColorLight,),
-                                    Text(model.selectedCategory, style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColorLight),),
-                                  ],
-                                ),
-                                color: Colors.white,
-                                onSelected: (val){setState(() {
-                                  model.selectedCategory = val.toString();
-                                  model.sort();
-                                });},
-                                itemBuilder: (BuildContext context) {
-                                  return model.categoriesList.map((e) => PopupMenuItem(
-                                    child: Text(e),
-                                    value: e,
-                                    textStyle: TextStyle(color: Theme.of(context).primaryColorLight),
-                                  )).toList();
-                                }
-                            ),
-                          ),
-                        ],
-                      )
-                          :
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            showDatePicker(context: this.context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2050))
-                                .then((value)  {
-                              if(value != null){
-                                setState(() {
-                                  model.date = value;
-                                  model.dateString = '${value.day}.${value.month}.${value.year}';
-                                  model.sort();
-                                });
-                              }
-                            });
-                          });
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            // Icon(
-                            //   Icons.date_range,
-                            //   color: Theme.of(context).primaryColor,
-                            //   size: 20.0,
-                            // ),
-                            SizedBox(
-                              width: 8.0,
-                            ),
-                            Text(model.dateString,
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 16.0
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      actions: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.search, color: Theme.of(context).primaryColorLight,),
-                        ),
-                        GestureDetector(
-                          onTap: () => model.navigateToProfile(),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.person_outline, color: Theme.of(context).primaryColorLight,),
-                          ),
-                        )
-                      ],
-                      centerTitle: true,
-                      bottom: TabBar(
-                          indicatorColor: Theme.of(context).accentColor,
-                          labelColor: Theme.of(context).accentColor,
-                          unselectedLabelColor: Theme.of(context).primaryColor,
-                          controller: _tabController,
-                          tabs: [
-                            Tab(text: 'News', icon: Icon(Icons.article),),
-                            Tab(text: 'Newspapers', icon: Icon(Icons.auto_stories))
-                          ]
-                      ),
+                              /// country
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: PopupMenuButton(
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4.0)
+                                    ),
+                                    child: FlagWidet(_country),
+                                    color: Colors.white,
+                                    onSelected: (val){setState(() {
+                                      _country = val.toString();
+                                    });},
+                                    itemBuilder: (BuildContext context) {
+                                      return [FlagWidet.BURKINA_FASO, FlagWidet.COTE_D_IVOIRE].map((e) => PopupMenuItem(
+                                        child: FlagWidet(e),
+                                        value: e,
+                                      )).toList();
+                                    }
+                                ),
+                              ),
 
-                    )],
-                    /// Tab View
-                    body: Container(
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: [
-                          StreamBuilder<List<FlashNews>>(
-                              stream: model.flashNewsList,
-                              builder: (context, snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
-                                  return Center(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: LinearProgressIndicator(),
+                              /// category selection button
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: PopupMenuButton(
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4.0)
                                     ),
-                                  );
-                                }
-                                if(snapshot.connectionState == ConnectionState.none){
-                                  return Center(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: LinearProgressIndicator(),
+                                    child: Row(
+                                      children: [
+                                        // Icon(Icons.account_tree_outlined, color: Theme.of(context).primaryColorLight,),
+                                        Text(model.selectedCategory, style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColorLight),),
+                                      ],
                                     ),
-                                  );
-                                }
-                                if(snapshot.hasData){
-                                  return ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: snapshot.data!.length,
-                                    itemBuilder: (context, index) {
-                                      return snapshot.data![index].getCard();
-                                    },
-                                  );
-                                }
-                                return Text('Waiting');
-                              }),
-                          StreamBuilder<List<Newspaper>>(
-                              stream: model.newspaperList,
-                              builder: (context, snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
-                                  return Center(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: LinearProgressIndicator(),
-                                    ),
-                                  );
-                                }
-                                if(snapshot.connectionState == ConnectionState.none){
-                                  return Center(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: LinearProgressIndicator(),
-                                    ),
-                                  );
-                                }
-                                if(snapshot.hasData){
-                                  return ListView.builder(
-                                    shrinkWrap: false,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: snapshot.data!.length,
-                                    itemBuilder: (context, index) {
-                                      return snapshot.data![index].getCard();
-                                    },
-                                  );
-                                }
-                                return Text('Waiting');
-                              }),
-                        ],
+                                    color: Colors.white,
+                                    onSelected: (val){setState(() {
+                                      model.selectedCategory = val.toString();
+                                      model.sort();
+                                    });},
+                                    itemBuilder: (BuildContext context) {
+                                      return model.categoriesList.map((e) => PopupMenuItem(
+                                        child: Text(e),
+                                        value: e,
+                                        textStyle: TextStyle(color: Theme.of(context).primaryColorLight),
+                                      )).toList();
+                                    }
+                                ),
+                              ),
+                            ],
+                          )
+                              :
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                showDatePicker(context: this.context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2050))
+                                    .then((value)  {
+                                  if(value != null){
+                                    setState(() {
+                                      model.date = value;
+                                      model.dateString = '${value.day}.${value.month}.${value.year}';
+                                      model.sort();
+                                    });
+                                  }
+                                });
+                              });
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                // Icon(
+                                //   Icons.date_range,
+                                //   color: Theme.of(context).primaryColor,
+                                //   size: 20.0,
+                                // ),
+                                SizedBox(
+                                  width: 8.0,
+                                ),
+                                Text(model.dateString,
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 16.0
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(Icons.search, color: Theme.of(context).primaryColorLight,),
+                            ),
+                            GestureDetector(
+                              onTap: () => model.navigateToProfile(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.person_outline, color: Theme.of(context).primaryColorLight,),
+                              ),
+                            )
+                          ],
+                          centerTitle: true,
+                          bottom: TabBar(
+                              indicatorColor: Theme.of(context).accentColor,
+                              labelColor: Theme.of(context).accentColor,
+                              unselectedLabelColor: Theme.of(context).primaryColor,
+                              controller: _tabController,
+                              tabs: [
+                                Tab(text: 'News', icon: Icon(Icons.article),),
+                                Tab(text: 'Newspapers', icon: Icon(Icons.auto_stories))
+                              ]
+                          ),
+
+                        )],
+                        /// Tab View
+                        body: Container(
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: [
+                              StreamBuilder<List<FlashNews>>(
+                                  stream: model.flashNewsList,
+                                  builder: (context, snapshot) {
+                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                      return Center(
+                                        child: Container(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: LinearProgressIndicator(),
+                                        ),
+                                      );
+                                    }
+                                    if(snapshot.connectionState == ConnectionState.none){
+                                      return Center(
+                                        child: Container(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: LinearProgressIndicator(),
+                                        ),
+                                      );
+                                    }
+                                    if(snapshot.hasData){
+                                      return ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: snapshot.data!.length,
+                                        itemBuilder: (context, index) {
+                                          return snapshot.data![index].getCard();
+                                        },
+                                      );
+                                    }
+                                    return Text('Waiting');
+                                  }),
+                              StreamBuilder<List<Newspaper>>(
+                                  stream: model.newspaperList,
+                                  builder: (context, snapshot) {
+                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                      return Center(
+                                        child: Container(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: LinearProgressIndicator(),
+                                        ),
+                                      );
+                                    }
+                                    if(snapshot.connectionState == ConnectionState.none){
+                                      return Center(
+                                        child: Container(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: LinearProgressIndicator(),
+                                        ),
+                                      );
+                                    }
+                                    if(snapshot.hasData){
+                                      return ListView.builder(
+                                        shrinkWrap: false,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: snapshot.data!.length,
+                                        itemBuilder: (context, index) {
+                                          return snapshot.data![index].getCard();
+                                        },
+                                      );
+                                    }
+                                    return Text('Waiting');
+                                  }),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                    return Center(
+                      child: Container(
+                        padding: EdgeInsets.all(8.0),
+                        child: LinearProgressIndicator(),
                       ),
-                    ),
+                    );
+
+                  }
                 ),
               ),
               floatingActionButton: FloatingActionButton(onPressed: () {

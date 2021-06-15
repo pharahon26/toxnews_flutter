@@ -7,11 +7,16 @@ import 'package:toxnews/services/FirebaseFirestoreService.dart';
 
 class CompanyUnitViewModel extends BaseViewModel{
   String companyId;
-  late NewspaperCompany company;
+  bool wait = true;
+  late Future<NewspaperCompany> company;
   final FirebaseFirestoreService _firestoreService = locator<FirebaseFirestoreService>();
 
   CompanyUnitViewModel(this.companyId){
-   company = _firestoreService.getCompany(companyId);
+    company = _firestoreService.getCompany(companyId);
+  }
+
+  Future<List<FlashNews>> flashNewsList(){
+    return _firestoreService.getCompanyFlashNews(companyId)
   }
 
 }

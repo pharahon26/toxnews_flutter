@@ -50,12 +50,11 @@ class FirebaseFirestoreService{
 
   /// COMPANY
   /// get company
-  NewspaperCompany getCompany(String companyId) {
+  Future<NewspaperCompany> getCompany(String companyId) async{
     /// get the Newspaper from a specific company
     NewspaperCompany c = NewspaperCompany();
     DocumentReference companyNewspaperRef = _firestore.collection(NewspaperCompany.REF_FIREBASE_FIRESTORE).doc(companyId);
-    companyNewspaperRef.get().then((value) => c =NewspaperCompany.fromJson(value.data()!));
-    return c;
+    return companyNewspaperRef.get().then((value) => NewspaperCompany.fromJson(value.data()!));
   }
 
 
