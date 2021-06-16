@@ -13,15 +13,15 @@ NewspaperCompany _$NewspaperCompanyFromJson(Map<String, dynamic> json) {
     ..name = json['name'] as String
     ..country = json['country'] as String
     ..city = json['city'] as String
-    ..mail = ((json['mail']?? [] ) as List<dynamic>).map((e) => e as String).toList()
+    ..mail = ((json['mail']??[]) as List<dynamic>).map((e) => e as String).toList()
     ..newspapers =
-        ((json['newspapers']?? [] ) as List<dynamic>).map((e) => e as String).toList()
+        ((json['newspapers']??[]) as List<dynamic>).map((e) => e as String).toList()
     ..flashNews =
-        ((json['flashNews']?? [] ) as List<dynamic>).map((e) => e as String).toList()
+        ((json['flashNews']??[]) as List<dynamic>).map((e) => e as String).toList()
     ..phoneNumber =
-        ((json['phoneNumber']?? [] ) as List<dynamic>).map((e) => e as num).toList()
+        ((json['phoneNumber']??[]) as List<dynamic>).map((e) => e as num).toList()
     ..comments =
-        ((json['comments']?? [] )as List<dynamic>).map((e) => e as String).toList()
+        ((json['comments']??[]) as List<dynamic>).map((e) => e as String).toList()
     ..followers = (json['followers']??0) as int
     ..trends = (json['trends']??0) as int
     ..likes = (json['likes']??0) as int

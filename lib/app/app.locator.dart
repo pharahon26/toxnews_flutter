@@ -11,6 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../services/FirebaseAuhService.dart';
 import '../services/FirebaseFirestoreService.dart';
+import '../services/NewspaperRepository.dart';
 
 final locator = StackedLocator.instance;
 
@@ -19,4 +20,5 @@ void setupLocator() {
   locator.registerLazySingleton(() => SnackbarService());
   locator.registerLazySingleton(() => FirebaseAuthService());
   locator.registerLazySingleton(() => FirebaseFirestoreService());
+  locator.registerLazySingleton(() => NewspaperRepository());
 }

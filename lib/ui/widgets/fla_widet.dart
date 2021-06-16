@@ -8,7 +8,7 @@ class FlagWidet extends StatelessWidget {
   static const String BURKINA_FASO = 'BURKINA FASO';
   static const String COTE_D_IVOIRE = 'COTE D`\'IVOIRE';
   static const String BURKINA_FASO_FLAG = 'assets/bf.png';
-  static const String COTE_D_IVOIRE8FLAG = 'assets/ci.png';
+  static const String COTE_D_IVOIRE_FLAG = 'assets/ci.png';
 
 
   String _country;
@@ -26,7 +26,7 @@ class FlagWidet extends StatelessWidget {
         );
       case COTE_D_IVOIRE:
         return Container(
-          child: Image.asset(COTE_D_IVOIRE8FLAG,
+          child: Image.asset(COTE_D_IVOIRE_FLAG,
           height: 20.0,
             width: 20.0,
           ),

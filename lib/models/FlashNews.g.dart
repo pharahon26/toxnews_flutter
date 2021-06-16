@@ -17,13 +17,13 @@ FlashNews _$FlashNewsFromJson(Map<String, dynamic> json) {
     ..companyLogoURL = json['companyLogoURL'] as String
     ..category = json['category'] as String
     ..creationDate = json['creationDate'] as int
-    ..likes = json['likes']?? 0
-    ..unlikes = json['unlikes']?? 0
-    ..trends = json['trends']?? 0
-    ..watcher = json['watcher']?? 0
+    ..likes = (json['likes']??0) as int
+    ..unlikes = (json['unlikes']??0) as int
+    ..trends = (json['trends']??0) as int
+    ..watcher = (json['watcher']??0) as int
     ..comments =
         (json['comments'] as List<dynamic>).map((e) => e as String).toList()
-    ..level = 0;
+    ..level = (json['level']??0) as int;
 }
 
 Map<String, dynamic> _$FlashNewsToJson(FlashNews instance) => <String, dynamic>{

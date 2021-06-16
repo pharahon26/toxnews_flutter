@@ -45,27 +45,16 @@ class _NewspaperCardViewState extends State<NewspaperCardView> {
                 borderRadius: BorderRadius.circular(4.0)
             ),
             child: AspectRatio(
-              aspectRatio:1/2,
+              aspectRatio:2/3,
               child: GestureDetector(
                 onTap: () async{
                   print('ouvrir le journal');
                   print(widget.newspaper.firstPageURL);
-                  if(model.isDownloading){
-                    print('non au boublon');
-                  }else{
-                    setState(() {
-                      isDownloading = true;
-                    });
-                    String path = await model.downloadPdfAndNavigate(widget.newspaper);
-                    setState(() {
-                      isDownloading = false;
-                    });
-                    model.navigateToReader(path);
-                  }
+                  model.navigateToDetails(widget.newspaper);
 
                 },
                 child: Container(
-                  height: (mediaQuery.size.height *2 )/ 3,
+                  // height: (mediaQuery.size.height *2 )/ 3,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
                       Color(0x70000000),
@@ -104,19 +93,30 @@ class _NewspaperCardViewState extends State<NewspaperCardView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-
+                            /// DATE
+                            Text('  ${widget.date.day}.${widget.date.month}.${widget.date.year}',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
                             /// company
                             Column(
                               children: [
-                                Text(widget.newspaper.newsPaperCompany,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontSize: 32.0,
-                                      color: Colors.white
+                                /// COMPANY AND FLAG
+                                GestureDetector(
+                                  onTap: () => model.navigateToCompany(widget.newspaper.newsPaperCompany),
+                                  child: Chip(
+                                    avatar: FlagWidet(FlagWidet.BURKINA_FASO),
+                                    label: Text(widget.newspaper.newsPaperCompany.split('.').first.toUpperCase(),
+                                      style: TextStyle(color: Theme.of(context).primaryColor , fontSize: 12),
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                    backgroundColor: Colors.white ,
+                                    side: BorderSide(color: Theme.of(context).primaryColor ),
                                   ),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
                                 ),
                                 Text(widget.newspaper.category,
                                   textAlign: TextAlign.left,
@@ -131,22 +131,6 @@ class _NewspaperCardViewState extends State<NewspaperCardView> {
                               ],
                             ),
 
-                            /// DATE
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.date_range,
-                                  color: Colors.white,
-                                  size: 18.0,
-                                ),
-                                Text('  ${widget.date.day}.${widget.date.month}.${widget.date.year}',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
 
                           ],
                         ),
@@ -157,14 +141,7 @@ class _NewspaperCardViewState extends State<NewspaperCardView> {
                           ],
                         )
                             :
-                        Container(height: 1.0,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(height: 1.0,),
-                            FlagWidet(widget.newspaper.country)
-                          ],
-                        ),
+                        Container(height: 1.0,)
                       ],
                     ),
                   ),

@@ -92,7 +92,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         headerSliverBuilder: (context, innerBoxIsScrolled) => [SliverAppBar(
                           backgroundColor: Colors.white,
                           automaticallyImplyLeading: false,
-                          pinned: true,
+                          snap: true,
                           floating: true,
                           elevation: 5,
                           leading: IconButton(icon: Icon(_isFilter? Icons.filter_list : Icons.update, color: Theme.of(context).primaryColorLight,),
@@ -253,7 +253,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
                         )],
                         /// Tab View
-                        body: Container(
+                        body: SafeArea(
                           child: TabBarView(
                             controller: _tabController,
                             children: [

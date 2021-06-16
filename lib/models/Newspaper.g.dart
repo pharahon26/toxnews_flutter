@@ -12,19 +12,19 @@ Newspaper _$NewspaperFromJson(Map<String, dynamic> json) {
     ..titles = json['titles'] as String
     ..pdfURL = json['pdfURL'] as String
     ..country = json['country'] as String
-    ..price =  '${json['price']}'
+    ..price = json['price'].toString()
     ..newsPaperCompany = json['newsPaperCompany'] as String
     ..firstPageURL = json['firstPageURL'] as String
     ..category = json['category'] as String
     ..date = json['date'] as String
     ..comments =
         (json['comments'] as List<dynamic>).map((e) => e as String).toList()
-    ..likes = json['likes']?? 0
-    ..unlikes = json['unlikes']?? 0
-    ..trends = json['trends']?? 0
-    ..own = json['own']?? 0
-    ..download = json['download']?? 0
-    ..level = 0;
+    ..likes = (json['likes']??0) as int
+    ..unlikes = (json['unlikes']??0) as int
+    ..trends = (json['trends']??0) as int
+    ..own = (json['own']??0) as int
+    ..download = (json['download']??0) as int
+    ..level = (json['level']??0) as int;
 }
 
 Map<String, dynamic> _$NewspaperToJson(Newspaper instance) => <String, dynamic>{

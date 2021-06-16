@@ -11,7 +11,6 @@ import 'package:stacked/stacked.dart';
 
 import '../models/FlashNews.dart';
 import '../models/Newspaper.dart';
-import '../models/NewspaperCompany.dart';
 import '../ui/views/aboutView/about.dart';
 import '../ui/views/companyUnitView/companyUnitView.dart';
 import '../ui/views/flashNewsUnitView/flashNewsUnitView.dart';
